@@ -30,8 +30,17 @@ var app = angular
 
 // Declared route
 app.config(['$routeProvider', function($routeProvider) {
-    $routeProvider.when('/login', {
-        templateUrl: 'login/login.html',
-        controller: 'LoginCtrl'
+
+    $routeProvider
+        .when('/login', {
+            templateUrl: 'src/login/login.html',
+            controller: 'LoginController'
+        })
+        .when('/home', {
+            templateUrl: 'src/home/home.html',
+        })
+        .otherwise({
+        redirectTo: '/login'
     });
+
 }])
