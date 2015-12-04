@@ -4,10 +4,13 @@
 
 'use strict';
 
-angular
-    .module('crmDemo', ['ngMaterial', 'users'])
+var app = angular
+    .module('crmDemo', [
+        'ngMaterial',
+        'users',
+        'ngRoute'
+    ])
     .config(function($mdThemingProvider, $mdIconProvider) {
-
         $mdIconProvider
             .defaultIconSet("./assets/svg/avatars.svg", 128)
             .icon("menu", "./assets/svg/menu.svg", 24)
@@ -22,3 +25,13 @@ angular
             .accentPalette('red');
 
     });
+
+// Declared route
+
+// Declared route
+app.config(['$routeProvider', function($routeProvider) {
+    $routeProvider.when('/login', {
+        templateUrl: 'login/login.html',
+        controller: 'LoginCtrl'
+    });
+}])
