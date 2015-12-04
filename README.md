@@ -1,3 +1,10 @@
+# CRM Demo with AngularJS and FireBase
+
+This is a starting demo project to demostrate the capabilities
+of Angular and FireBase for making real time scueduling application.
+
+Built don top of Angular-Material :
+
 # Angular Material-Start
 
 This Material **start*** project is a *seed* for AngularJS Material applications. The project contains a sample AngularJS application and is pre-configured to install the Angular framework and a bunch of development and testing tools for instant web development gratification.
