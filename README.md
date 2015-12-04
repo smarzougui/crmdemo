@@ -3,7 +3,16 @@
 This is a starting demo project to demostrate the capabilities
 of Angular and FireBase for making real time scueduling application.
 
-Built don top of Angular-Material :
+Built don top of Angular-Material
+
+
+### TODOs
+* Creating Firebase
+* Integrating FireBase into Angular
+* Integrating Auth0
+
+
+##############
 
 # Angular Material-Start
 
