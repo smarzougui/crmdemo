@@ -8,4 +8,4 @@ angular.module('crmDemo.login', ['ngRoute', 'firebase'])
             templateUrl: 'src/login/login.html',
             controller: 'LoginController'
         });
-    }])
+    }]);

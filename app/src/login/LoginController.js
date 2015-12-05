@@ -1,26 +1,19 @@
 // Login controller
-(function(){
     'use strict';
 
     var $scope;
     var $firebaseSimpleLogin;
 
-    function LoginController() {
-        //used later for binding
-        this.init();
-    }
-
     function LoginController (scope, firebaseSimpleLogin) {
         $scope = scope;
         $firebaseSimpleLogin = firebaseSimpleLogin;
+
+        var firebaseObj = new Firebase("https://luminous-fire-4441.firebaseio.com");
+        var loginObj = $firebaseSimpleLogin(firebaseObj);
+        console.log (loginObj);
+
     }
 
-    LoginController.prototype.init = function () {
-        //init here if needed
-    };
-
-    angular.module('crmDemo.login').contoller('LoginController', LoginController );
+    angular.module('crmDemo.login').controller('LoginController', LoginController );
 
     LoginController.$inject = ['$scope', '$firebaseSimpleLogin'];
-
-});
