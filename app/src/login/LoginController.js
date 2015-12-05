@@ -7,8 +7,10 @@
     function LoginController (scope, firebaseSimpleLogin, auth) {
         $scope = scope;
         $firebaseSimpleLogin = firebaseSimpleLogin;
+        $scope.auth = auth;
 
         $scope.user = {};
+
 
         var firebaseObj = new Firebase("https://luminous-fire-4441.firebaseio.com");
         var loginObj = $firebaseSimpleLogin(firebaseObj);

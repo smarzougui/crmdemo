@@ -27,11 +27,38 @@ var app = angular
             .primaryPalette('brown')
             .accentPalette('red');
 
+
+        /*
+        *** Auth0
+         */
         authProvider.init({
             domain: 'crm-demo.eu.auth0.com',
             clientID: 'p5oqu1xc4U7A8k3vimWiV7tAplNLN6Zz',
+            callbackURL: location.href,
             loginUrl: '/login'
         });
+
+        authProvider.on('loginSuccess', function($location, profilePromise, idToken, store) {
+            console.log("Login Success");
+            profilePromise.then(function(profile) {
+                store.set('profile', profile);
+                store.set('token', idToken);
+            });
+            $location.path('/');
+        });
+
+        authProvider.on('loginFailure', function() {
+            alert("Error");
+        });
+
+        authProvider.on('authenticated', function($location) {
+            console.log("Authenticated");
+
+        });
+
+        authProvider.on('logout', function() {
+            console.log("Logged out");
+        })
 
     }).run(function(auth) {
         auth.hookEvents();
