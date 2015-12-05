@@ -8,8 +8,9 @@
         <label class="checkbox"> <a href="#"> Sign Up</a> </label>
         <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="SignIn($event)">Sign in</button>
         <button class="btn btn-lg btn-info btn-block" ng-click="SignIn($event)">Auth0 Sign in</button>
+        <button class="btn btn-lg btn-info btn-block" ng-click="logout()">logOut</button>
     </form>
 
-
+    <span>His name is {{auth.profile.nickname}}</span>
 </div>
  

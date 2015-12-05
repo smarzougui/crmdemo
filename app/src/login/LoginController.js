@@ -4,10 +4,11 @@
     var $scope;
     var $firebaseSimpleLogin;
 
-    function LoginController (scope, firebaseSimpleLogin, auth) {
+    function LoginController (scope, firebaseSimpleLogin, auth, store) {
         $scope = scope;
         $firebaseSimpleLogin = firebaseSimpleLogin;
         $scope.auth = auth;
+        $scope.store= store;
 
         $scope.user = {};
 
@@ -51,10 +52,14 @@
 
         }
 
-        console.log (loginObj);
+        $scope.logout = function() {
+            auth.signout();
+            store.remove('profile');
+            store.remove('token');
+        }
 
     }
 
     angular.module('crmDemo.login').controller('LoginController', LoginController );
 
-    LoginController.$inject = ['$scope', '$firebaseSimpleLogin', 'auth'];
+    LoginController.$inject = ['$scope', '$firebaseSimpleLogin', 'auth', 'store'];

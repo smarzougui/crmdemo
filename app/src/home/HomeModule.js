@@ -6,5 +6,6 @@ angular.module('crmDemo.home', ['ngRoute'])
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider.when('/home', {
             templateUrl: 'src/home/home.html',
+            requiresLogin: true
         });
     }])

@@ -16,7 +16,7 @@ var app = angular
         'angular-jwt',
         'ngCookies'
     ])
-    .config(function($mdThemingProvider, $mdIconProvider, authProvider) {
+    .config(function($mdThemingProvider, $mdIconProvider, authProvider, $httpProvider, jwtInterceptorProvider) {
         $mdIconProvider
             .defaultIconSet("./assets/svg/avatars.svg", 128)
             .icon("menu", "./assets/svg/menu.svg", 24)
@@ -32,7 +32,7 @@ var app = angular
 
 
         /*
-        *** Auth0
+         *** Auth0
          */
         authProvider.init({
             domain: 'crm-demo.eu.auth0.com',
@@ -47,7 +47,8 @@ var app = angular
                 store.set('profile', profile);
                 store.set('token', idToken);
                 console.log("profile=", profile);
-                
+                console.log("idToken=", idToken);
+
 
             });
             $location.path('/');
@@ -66,17 +67,42 @@ var app = angular
             console.log("Logged out");
         })
 
-    }).run(function(auth) {
-        auth.hookEvents();
-    });
 
-// Declared route
+        // We're annotating this function so that the `store` is injected correctly when this file is minified
+        jwtInterceptorProvider.tokenGetter = ['store', function(store) {
+            // Return the saved token
+            return store.get('token');
+        }];
+        $httpProvider.interceptors.push('jwtInterceptor');
+
+
+    }).run(function($rootScope, auth, store, jwtHelper) {
+        auth.hookEvents();
+
+
+        //Keep User loggedIn after page refresh
+        $rootScope.$on('$locationChangeStart', function() {
+            var token = store.get('token');
+            if (token) {
+                if (!jwtHelper.isTokenExpired(token)) {
+                    if (!auth.isAuthenticated) {
+                        auth.authenticate(store.get('profile'), token);
+                    }
+                } else {
+                    // Either show the login page or use the refresh token to get a new idToken
+                    $location.path('/');
+                }
+            }
+        });
+
+
+    });
 
 // Declared route
 app.config(['$routeProvider', function($routeProvider) {
 
     $routeProvider.otherwise({
-        redirectTo: '/login'
+        redirectTo: '/home'
     });
 
 }])
