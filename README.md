@@ -7,9 +7,11 @@ Built don top of Angular-Material
 
 
 ### TODOs
-* Creating Firebase
-* Integrating FireBase into Angular
+* ~~Creating Firebase~~
+* ~~Integrating FireBase into Angular~~
+* ~~Making simple connection to FireBase~~
 * Integrating Auth0
+
 
 
 ##############
