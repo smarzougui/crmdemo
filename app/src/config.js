@@ -10,9 +10,10 @@ var app = angular
         'crmDemo.home',
         'ngMaterial',
         'users',
-        'ngRoute'
+        'ngRoute',
+        'auth0'
     ])
-    .config(function($mdThemingProvider, $mdIconProvider) {
+    .config(function($mdThemingProvider, $mdIconProvider, authProvider) {
         $mdIconProvider
             .defaultIconSet("./assets/svg/avatars.svg", 128)
             .icon("menu", "./assets/svg/menu.svg", 24)
@@ -26,6 +27,14 @@ var app = angular
             .primaryPalette('brown')
             .accentPalette('red');
 
+        authProvider.init({
+            domain: 'crm-demo.eu.auth0.com',
+            clientID: 'p5oqu1xc4U7A8k3vimWiV7tAplNLN6Zz',
+            loginUrl: '/login'
+        });
+
+    }).run(function(auth) {
+        auth.hookEvents();
     });
 
 // Declared route

@@ -4,7 +4,7 @@
     var $scope;
     var $firebaseSimpleLogin;
 
-    function LoginController (scope, firebaseSimpleLogin) {
+    function LoginController (scope, firebaseSimpleLogin, auth) {
         $scope = scope;
         $firebaseSimpleLogin = firebaseSimpleLogin;
 
@@ -19,7 +19,22 @@
             var username = $scope.user.email;
             var password = $scope.user.password;
 
-            loginObj.$login('password', {
+
+            //Auth0
+            auth.signin({
+                authParams: {
+                    scope: 'openid name email' // Specify the scopes you want to retrieve
+                }
+            }, function(profile, idToken, accessToken, state, refreshToken) {
+                $location.path('/user-info')
+            }, function(err) {
+                console.log("Error :(", err);
+            });
+
+
+
+            //FireBase
+/*            loginObj.$login('password', {
                 email: username,
                 password: password
             })
@@ -29,7 +44,9 @@
                 }, function(error) {
                     // Failure callback
                     console.log('Authentication failure');
-                });
+                });*/
+
+
         }
 
         console.log (loginObj);
@@ -38,4 +55,4 @@
 
     angular.module('crmDemo.login').controller('LoginController', LoginController );
 
-    LoginController.$inject = ['$scope', '$firebaseSimpleLogin'];
+    LoginController.$inject = ['$scope', '$firebaseSimpleLogin', 'auth'];
