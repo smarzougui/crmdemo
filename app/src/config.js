@@ -46,6 +46,9 @@ var app = angular
             profilePromise.then(function(profile) {
                 store.set('profile', profile);
                 store.set('token', idToken);
+                console.log("profile=", profile);
+                
+
             });
             $location.path('/');
         });
