@@ -6,6 +6,8 @@
 
 var app = angular
     .module('crmDemo', [
+        'crmDemo.login',
+        'crmDemo.home',
         'ngMaterial',
         'users',
         'ngRoute'
@@ -31,15 +33,7 @@ var app = angular
 // Declared route
 app.config(['$routeProvider', function($routeProvider) {
 
-    $routeProvider
-        .when('/login', {
-            templateUrl: 'src/login/login.html',
-            controller: 'LoginController'
-        })
-        .when('/home', {
-            templateUrl: 'src/home/home.html',
-        })
-        .otherwise({
+    $routeProvider.otherwise({
         redirectTo: '/login'
     });
 
