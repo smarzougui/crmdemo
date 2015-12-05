@@ -69,9 +69,20 @@ var app = angular
 
 
         // We're annotating this function so that the `store` is injected correctly when this file is minified
-        jwtInterceptorProvider.tokenGetter = ['store', function(store) {
-            // Return the saved token
-            return store.get('token');
+        jwtInterceptorProvider.tokenGetter = ['store', 'config', 'auth', function(store, config, auth) {
+
+            var targetClientId = 'kfiboIt1lAeq0MSJkaeVXhdZTmgRff8iA5KAy3dv'; // FireBase Application
+            if (config.url.indexOf('https://luminous-fire-4441.firebaseio.com') === 0) {
+                return auth.getToken({
+                    targetClientId: targetClientId
+                }).then(function(delegation) {
+                    return delegation.id_token;
+                });
+            } else {
+                return store.get('token');
+            }
+
+
         }];
         $httpProvider.interceptors.push('jwtInterceptor');
 
