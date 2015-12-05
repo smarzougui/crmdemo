@@ -10,7 +10,8 @@
     "angular-route": "~1.4.0",
     "angular-animate": "^1.4.6",
     "angular-aria": "^1.4.6",
-    "angular-material": "^0.11.2"
+    "angular-material": "^0.11.2",
+    "auth0-angular": "~4.0.4"
   },
   "engines": {
     "node": "0.12.7"
