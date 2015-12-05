@@ -11,7 +11,10 @@ var app = angular
         'ngMaterial',
         'users',
         'ngRoute',
-        'auth0'
+        'auth0',
+        'angular-storage',
+        'angular-jwt',
+        'ngCookies'
     ])
     .config(function($mdThemingProvider, $mdIconProvider, authProvider) {
         $mdIconProvider
@@ -34,7 +37,7 @@ var app = angular
         authProvider.init({
             domain: 'crm-demo.eu.auth0.com',
             clientID: 'p5oqu1xc4U7A8k3vimWiV7tAplNLN6Zz',
-            callbackURL: location.href,
+            //callbackURL: 'http://vm/freelance_demo_crm/app/#/home',
             loginUrl: '/login'
         });
 

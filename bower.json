@@ -11,7 +11,11 @@
     "angular-animate": "^1.4.6",
     "angular-aria": "^1.4.6",
     "angular-material": "^0.11.2",
-    "auth0-angular": "~4.0.4"
+    "auth0-angular": "~4.0.4",
+    "angular-cookies": "~1.4.8",
+    "a0-angular-storage": "~0.0.13",
+    "angular-jwt": "~0.0.9"
+
   },
   "engines": {
     "node": "0.12.7"
