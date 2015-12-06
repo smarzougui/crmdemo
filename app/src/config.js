@@ -87,7 +87,7 @@ var app = angular
         $httpProvider.interceptors.push('jwtInterceptor');
 
 
-    }).run(function($rootScope, auth, store, jwtHelper) {
+    }).run(function($location, $rootScope, auth, store, jwtHelper) {
         auth.hookEvents();
 
 
@@ -101,7 +101,7 @@ var app = angular
                     }
                 } else {
                     // Either show the login page or use the refresh token to get a new idToken
-                    $location.path('/');
+                    $location.path('/login');
                 }
             }
         });
