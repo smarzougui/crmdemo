@@ -2,21 +2,25 @@
 
     <div class="row times">
 
-        <div class="col-md-6 text-center" ng-repeat="day in days">
+        <div class="col-md-2 text-center" ng-repeat="day in days">
 
             <h>{{ day.name }}</h>
 
             <div class="time-slot" ng-repeat="slot in day.slots">
 
-                <input type="checkbox" id="{{ day.name }}-{{ $index }}" ng-model="slot.booked" >
+                <input type="checkbox" id="{{ day.name }}-{{ $index }}" ng-model="slot.booked">
 
-                <label for="{{ day.name }}-{{ $index }}">{{ slot.time }}<br>
-                    <span ng-if="slot.booked">Booked</span>
+                <label  class="time-slot" for="{{ day.name }}-{{ $index }}">{{ slot.time }}
+                    <br> <span ng-if="slot.booked">Booked</span>
                     <span ng-if="!slot.booked">Available</span>
                 </label>
 
             </div>
         </div>
+
+        <p class="text-center">
+            <a href="#" class="btn btn-primary" ng-click="reset()">Reset</a>
+        </p>
 
     </div>
 </div>

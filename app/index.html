@@ -20,7 +20,29 @@
 <body ng-app="crmDemo" layout="row" ng-controller="UserController as ul" ng-cloak>
 
 
-<div ng-view></div>
+<div class="container">
+    <div class="header">
+        <ul class="nav nav-pills pull-right">
+            <li class="active"><a ng-href="#">Test button</a></li>
+        </ul>
+        <h3 class="text-muted">Schedule</h3>
+
+        <div class="row">
+            <form class="form-horizontal col-md-8 col-md-offset-2" role="form">
+                <div class="input-group">
+
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div ng-view=""></div>
+
+    <div class="footer">
+        <p><span class="glyphicon glyphicon-th-list"></span> Demo CRM application</p>
+    </div>
+</div>
 
 
 <script src="./bower_components/angular/angular.js"></script>
@@ -41,7 +63,6 @@
 <script src="./bower_components/firebase/firebase.js"></script>
 <script src="./bower_components/angularfire/dist/angularfire.min.js"></script>
 <script src="https://cdn.firebase.com/js/simple-login/1.6.2/firebase-simple-login.js"></script>
-
 
 
 <script src="./src/config.js"></script>

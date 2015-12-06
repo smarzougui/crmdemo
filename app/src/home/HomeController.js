@@ -9,6 +9,8 @@ LoginController.$inject = ['$scope', '$firebaseAuth', 'auth', 'store', '$firebas
 
 function LoginController($scope, firebaseAuth, auth, store, $firebaseArray, $firebaseObject) {
 
+    var self = this;
+
     $firebaseAuth = firebaseAuth;
     $scope.auth = auth;
     $scope.store = store;
@@ -31,42 +33,69 @@ function LoginController($scope, firebaseAuth, auth, store, $firebaseArray, $fir
     syncObject.$bindTo($scope, 'days');
 
 
-
     $scope.reset = function() {
 
         var fb = $firebaseArray(friendsRef);
 
-        friendsRef.set({
-            monday: {
-                name: 'Monday',
-                slots: {
-                    0900: {
-                        time: '9:00am',
-                        booked: false
-                    },
-                    0110: {
-                        time: '11:00am',
-                        booked: false
-                    }
-                }
+        var slots = {
+            0900: {
+                time: '9:00am',
+                booked: false
             },
-            tuesday: {
+            0110: {
+                time: '11:00am',
+                booked: false
+            },
+            1500: {
+                time: '03:00pm',
+                booked: false
+            },
+        };
+
+
+        friendsRef.set({
+            Monday: {
+                name: 'Monday',
+                slots: slots
+            },
+            Tuesday: {
                 name: 'Tuesday',
-                slots: {
-                    0900: {
-                        time: '9:00am',
-                        booked: false
-                    },
-                    0110: {
-                        time: '11:00am',
-                        booked: false
-                    }
-                }
+                slots: slots
+            },
+            Wednesday: {
+                name: 'wednesday',
+                slots: slots
+            },
+            Thursday: {
+                name: 'Thursday',
+                slots: slots
+            },
+            Friday: {
+                name: 'Friday',
+                slots: slots
             }
+
+
         });
 
 
     }
 
+    var _slots = function() {
+        return {
+            0900: {
+                time: '9:00am',
+                booked: false
+            },
+            0110: {
+                time: '11:00am',
+                booked: false
+            },
+            1500: {
+                time: '03:00pm',
+                booked: false
+            },
+        };
+    }
 }
 
