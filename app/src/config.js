@@ -12,6 +12,7 @@ var app = angular
         'users',
         'ngRoute',
         'auth0',
+        'firebase',
         'angular-storage',
         'angular-jwt',
         'ngCookies'

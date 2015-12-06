@@ -2,31 +2,30 @@
 'use strict';
 
 var $scope;
-var $firebaseSimpleLogin;
+var $firebaseAuth;
 
-function LoginController(scope, firebaseSimpleLogin, auth, store) {
-    $scope = scope;
-    $firebaseSimpleLogin = firebaseSimpleLogin;
+
+angular.module('crmDemo.login').controller('LoginController', LoginController);
+LoginController.$inject = ['$scope', '$firebaseAuth', 'auth', 'store', '$firebaseArray'];
+
+function LoginController($scope, firebaseAuth, auth, store, $firebaseArray) {
+
+    $firebaseAuth = firebaseAuth;
     $scope.auth = auth;
     $scope.store = store;
 
     $scope.user = {};
 
 
-    var firebaseObj = new Firebase("https://luminous-fire-4441.firebaseio.com");
-    var loginObj = $firebaseSimpleLogin(firebaseObj);
-
     // Grab the token
     var firebaseToken = store.get('firebaseToken');
     console.log("firebaseToken=", firebaseToken);
-    
 
 
     $scope.SignIn = function(event) {
         event.preventDefault();  // To prevent form refresh
         var username = $scope.user.email;
         var password = $scope.user.password;
-
 
         //Auth0
         auth.signin({
@@ -59,18 +58,6 @@ function LoginController(scope, firebaseSimpleLogin, auth, store) {
         });;
 
 
-        //FireBase
-        /*            loginObj.$login('password', {
-         email: username,
-         password: password
-         })
-         .then(function(user) {
-         // Success callback
-         console.log('Authentication successful');
-         }, function(error) {
-         // Failure callback
-         console.log('Authentication failure');
-         });*/
 
 
     }
@@ -81,8 +68,26 @@ function LoginController(scope, firebaseSimpleLogin, auth, store) {
         store.remove('token');
     }
 
+    $scope.testFBDelegation = function () {
+
+
+        var friendsRef = new Firebase("https://luminous-fire-4441.firebaseio.com");
+// Here we're using the Firebase Token we stored after login
+
+        var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiU2Fmd2VuIE1hcnpvdWd1aSIsImVtYWlsIjoic2Fmd2VuQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczovL2NybS1kZW1vLmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDExMjczMjM3MjI2ODg5MDM4NTIxMyIsImF1ZCI6InA1b3F1MXhjNFU3QThrM3ZpbVdpVjd0QXBsTkxONlp6IiwiZXhwIjoxNDQ5NDU1MjE3LCJpYXQiOjE0NDk0MTkyMTcsInYiOjAsImQiOnsiZmJfaWQiOiJnb29nbGUtb2F1dGgyfDExMjczMjM3MjI2ODg5MDM4NTIxMyJ9LCJhenAiOiJwNW9xdTF4YzRVN0E4azN2aW1XaVY3dEFwbE5MTjZaeiJ9.Y_LoyEK89W-F_r1qCGUhH-XfURVYF2Ts_bL1uMxMQuk";
+        friendsRef.authWithCustomToken(token, function(error, auth) {
+            if (error) {
+                console.log("Authentication Failed!", error);
+            } else {
+                console.log("Authenticated successfully with payload:", auth);
+            }
+        });
+
+        var friends = $firebaseArray(friendsRef);
+        friends.$add({name: 'Hey John'});
+
+
+    }
+
 }
 
-angular.module('crmDemo.login').controller('LoginController', LoginController);
-
-LoginController.$inject = ['$scope', '$firebaseSimpleLogin', 'auth', 'store'];
