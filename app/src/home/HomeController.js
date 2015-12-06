@@ -4,10 +4,10 @@ var $scope;
 var $firebaseAuth;
 
 
-angular.module('crmDemo.home').controller('HomeController', LoginController);
-LoginController.$inject = ['$scope', '$firebaseAuth', 'auth', 'store', '$firebaseArray', '$firebaseObject'];
+angular.module('crmDemo.home').controller('HomeController', HomeController);
+HomeController.$inject = ['$scope', '$firebaseAuth', 'auth', 'store', '$firebaseArray', '$firebaseObject'];
 
-function LoginController($scope, firebaseAuth, auth, store, $firebaseArray, $firebaseObject) {
+function HomeController($scope, firebaseAuth, auth, store, $firebaseArray, $firebaseObject) {
 
     var self = this;
 
@@ -31,6 +31,8 @@ function LoginController($scope, firebaseAuth, auth, store, $firebaseArray, $fir
     var syncObject = $firebaseObject(friendsRef);
     // three way data binding
     syncObject.$bindTo($scope, 'days');
+    console.log("$scope=", $scope);
+
 
 
     $scope.reset = function() {
@@ -76,6 +78,10 @@ function LoginController($scope, firebaseAuth, auth, store, $firebaseArray, $fir
             }
 
 
+        }, function (err) {
+            if (!err) {
+                console.log("Reset successful !");
+            }
         });
 
 
