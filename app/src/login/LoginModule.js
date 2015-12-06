@@ -1,6 +1,6 @@
 // Login Module
 
-angular.module('crmDemo.login', ['ngRoute', 'firebase'])
+angular.module('crmDemo.login', ['ngRoute'])
 
 // Declared route
     .config(['$routeProvider', function($routeProvider) {

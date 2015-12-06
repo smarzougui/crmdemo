@@ -57,9 +57,6 @@ function LoginController($scope, firebaseAuth, auth, store, $firebaseArray) {
             console.log("There was an error logging in", error);
         });;
 
-
-
-
     }
 
     $scope.logout = function() {
@@ -71,7 +68,7 @@ function LoginController($scope, firebaseAuth, auth, store, $firebaseArray) {
     $scope.testFBDelegation = function () {
 
 
-        var friendsRef = new Firebase("https://luminous-fire-4441.firebaseio.com");
+        var friendsRef = new Firebase("https://luminous-fire-4441.firebaseio.com/days");
 // Here we're using the Firebase Token we stored after login
 
         var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiU2Fmd2VuIE1hcnpvdWd1aSIsImVtYWlsIjoic2Fmd2VuQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczovL2NybS1kZW1vLmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDExMjczMjM3MjI2ODg5MDM4NTIxMyIsImF1ZCI6InA1b3F1MXhjNFU3QThrM3ZpbVdpVjd0QXBsTkxONlp6IiwiZXhwIjoxNDQ5NDU1MjE3LCJpYXQiOjE0NDk0MTkyMTcsInYiOjAsImQiOnsiZmJfaWQiOiJnb29nbGUtb2F1dGgyfDExMjczMjM3MjI2ODg5MDM4NTIxMyJ9LCJhenAiOiJwNW9xdTF4YzRVN0E4azN2aW1XaVY3dEFwbE5MTjZaeiJ9.Y_LoyEK89W-F_r1qCGUhH-XfURVYF2Ts_bL1uMxMQuk";
@@ -85,6 +82,10 @@ function LoginController($scope, firebaseAuth, auth, store, $firebaseArray) {
 
         var friends = $firebaseArray(friendsRef);
         friends.$add({name: 'Hey John'});
+
+
+
+
 
 
     }
