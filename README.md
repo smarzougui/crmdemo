@@ -10,10 +10,16 @@ Built don top of Angular-Material
 * ~~Creating Firebase~~
 * ~~Integrating FireBase into Angular~~
 * ~~Making simple connection to FireBase~~
+
+* Link (read write)Data to connected Candidate !
+* Link (read write)Data to connected Recruiter
+* Link (read write) Data to Hiring Manager.
+
+* Addint types of users: candidate, recruiter and hiring manager.
 * Persist connection for all authentication methods (auth0 and login/pass)
 * Integrating Auth0*
 * Using Auth0 to connect to FireBase
-* create data for each connected user
+* ~~create data for each connected user
 * Conceive a stored relations betweens users (to be defined)
 * ~~Make 3 way binding for booking slots (no user identification)
 * Integrate the scheduling
