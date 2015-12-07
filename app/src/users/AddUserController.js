@@ -6,9 +6,24 @@ var $firebaseAuth;
 
 
 angular.module('crmDemo.addUser').controller('AddUserController', AddUserController);
-AddUserController.$inject = ['$scope', '$firebaseAuth', 'auth', 'store', '$firebaseArray', '$location'];
+AddUserController.$inject = [
+    '$scope',
+    '$firebaseAuth',
+    'auth',
+    'store',
+    '$firebaseArray',
+    '$location',
+    'CONFIG',
+    'userInitDataService'
+];
 
-function AddUserController($scope, firebaseAuth, auth, store, $firebaseArray, $location) {
+function AddUserController($scope,
+                           firebaseAuth,
+                           auth, store,
+                           $firebaseArray,
+                           $location,
+                           CONFIG,
+                           userInitDataService) {
 
     $firebaseAuth = firebaseAuth;
     $scope.auth = auth;
@@ -19,18 +34,17 @@ function AddUserController($scope, firebaseAuth, auth, store, $firebaseArray, $l
 
     // Grab the token
     var firebaseToken = store.get('firebaseToken');
-    console.log("firebaseToken=", firebaseToken);
 
     $scope.connectAndAddUser = function(event) {
 
         event.preventDefault();  // To prevent form refresh
-        var username = $scope.user.email;
+        var email = $scope.user.email;
         var password = $scope.user.password;
 
-        var firebaseObj = new Firebase("https://luminous-fire-4441.firebaseio.com");
+        var firebaseObj = new Firebase(CONFIG.FIREBASE);
 
         firebaseObj.createUser({
-            email: username,
+            email: email,
             password: password
         }, function(error, userData) {
             if (error) {
@@ -38,6 +52,18 @@ function AddUserController($scope, firebaseAuth, auth, store, $firebaseArray, $l
             } else {
                 console.log("Successfully created user account with uid:", userData.uid);
                 $scope.success = true;
+                //Creating the user Data.
+
+
+
+
+                var usersRef = firebaseObj.child("users/" + email.replace('.', ','));
+                usersRef.set({
+                    days: userInitDataService,
+                    manager: 'null'
+                });
+
+
             }
         });
 

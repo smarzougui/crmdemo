@@ -18,6 +18,15 @@ var app = angular
         'angular-jwt',
         'ngCookies'
     ])
+    .constant('CONFIG', {
+        'APP_NAME' : 'My Awesome App',
+        'APP_VERSION' : '0.0.0',
+        'GOOGLE_ANALYTICS_ID' : '',
+        'BASE_URL' : '',
+        'SYSTEM_LANGUAGE' : '',
+        'FIREBASE' : 'https://luminous-fire-4441.firebaseio.com',
+        'TEMP_TOKEN': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NybS1kZW1vLmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDExMjczMjM3MjI2ODg5MDM4NTIxMyIsImF1ZCI6InA1b3F1MXhjNFU3QThrM3ZpbVdpVjd0QXBsTkxONlp6IiwiZXhwIjoxNDQ5NjQ4MzY5LCJpYXQiOjE0NDk2MTIzNjksInYiOjAsImQiOnsiZmJfaWQiOiJnb29nbGUtb2F1dGgyfDExMjczMjM3MjI2ODg5MDM4NTIxMyJ9LCJhenAiOiJwNW9xdTF4YzRVN0E4azN2aW1XaVY3dEFwbE5MTjZaeiJ9.p7SwcizSbWRfgOysnX-UP6EXCl70LxaS1E4BjQQgLW4'
+    })
     .config(function($mdThemingProvider, $mdIconProvider, authProvider, $httpProvider, jwtInterceptorProvider) {
         $mdIconProvider
             .defaultIconSet("./assets/svg/avatars.svg", 128)

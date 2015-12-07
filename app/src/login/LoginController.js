@@ -6,9 +6,9 @@ var $firebaseAuth;
 
 
 angular.module('crmDemo.login').controller('LoginController', LoginController);
-LoginController.$inject = ['$scope', '$firebaseAuth', 'auth', 'store', '$firebaseArray', '$location'];
+LoginController.$inject = ['$scope', '$firebaseAuth', 'auth', 'store', '$firebaseArray', '$location', 'CONFIG'];
 
-function LoginController($scope, firebaseAuth, auth, store, $firebaseArray, $location) {
+function LoginController($scope, firebaseAuth, auth, store, $firebaseArray, $location, CONFIG) {
 
     $firebaseAuth = firebaseAuth;
     $scope.auth = auth;
@@ -94,7 +94,7 @@ function LoginController($scope, firebaseAuth, auth, store, $firebaseArray, $loc
         var friendsRef = new Firebase("https://luminous-fire-4441.firebaseio.com/days");
 // Here we're using the Firebase Token we stored after login
 
-        var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NybS1kZW1vLmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDExMjczMjM3MjI2ODg5MDM4NTIxMyIsImF1ZCI6InA1b3F1MXhjNFU3QThrM3ZpbVdpVjd0QXBsTkxONlp6IiwiZXhwIjoxNDQ5NjQ4MzY5LCJpYXQiOjE0NDk2MTIzNjksInYiOjAsImQiOnsiZmJfaWQiOiJnb29nbGUtb2F1dGgyfDExMjczMjM3MjI2ODg5MDM4NTIxMyJ9LCJhenAiOiJwNW9xdTF4YzRVN0E4azN2aW1XaVY3dEFwbE5MTjZaeiJ9.p7SwcizSbWRfgOysnX-UP6EXCl70LxaS1E4BjQQgLW4";
+        var token = CONFIG.TEMP_TOKEN;
         friendsRef.authWithCustomToken(token, function(error, auth) {
             if (error) {
                 console.log("Authentication Failed!", error);

@@ -10,6 +10,7 @@ Built don top of Angular-Material
 * ~~Creating Firebase~~
 * ~~Integrating FireBase into Angular~~
 * ~~Making simple connection to FireBase~~
+* Persist connection for all authentication methods (auth0 and login/pass)
 * Integrating Auth0*
 * Using Auth0 to connect to FireBase
 * create data for each connected user
