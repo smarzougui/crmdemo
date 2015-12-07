@@ -7,6 +7,12 @@ Built don top of Angular-Material
 
 
 ### TODOs
+
+* ~~Create Job~~
+* Affect Job, cans, mans
+* Integrate a boot strap theme
+* Create a Bootstrap Menu.
+
 * ~~Creating Firebase~~
 * ~~Integrating FireBase into Angular~~
 * ~~Making simple connection to FireBase~~

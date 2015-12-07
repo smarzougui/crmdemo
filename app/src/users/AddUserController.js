@@ -25,6 +25,10 @@ function AddUserController($scope,
                            CONFIG,
                            userInitDataService) {
 
+    if (!!!store.get('profile')) {         //Not connected
+        $location.path('/login');
+    }
+
     $firebaseAuth = firebaseAuth;
     $scope.auth = auth;
     $scope.store = store;
@@ -52,10 +56,11 @@ function AddUserController($scope,
                 console.log("Error creating user:" + email, error);
             } else {
                 console.log("Successfully created user account with uid:", userData.uid);
-                $scope.success = true;
+                $scope.$apply(function() {
+                    $scope.success = true;
+                });
+
                 //Creating the user Data.
-
-
 
                 var usersRef = firebaseObj.child("users/" + email.replace(/\./g, ','));
                 usersRef.set({

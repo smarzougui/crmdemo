@@ -9,8 +9,8 @@ var app = angular
         'crmDemo.login',
         'crmDemo.home',
         'crmDemo.addUser',
+        'crmDemo.addJob',
         'ngMaterial',
-        'users',
         'ngRoute',
         'auth0',
         'firebase',
@@ -115,7 +115,7 @@ var app = angular
                 } else {
                     // Either show the login page or use the refresh token to get a new idToken
                     //TODO: add a Redirection to the Login page.
-                    $location.path('/login');
+                    //$location.path('/login');
                 }
             }
         });

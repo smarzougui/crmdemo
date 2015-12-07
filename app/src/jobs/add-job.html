@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="center">
+        <h4>Add a Job</h4>
+    </div>
+    {{job.name}}
+    <div class="alert alert-success" role="alert" ng-show="success">Successfully created the Job: {{job.name}}</div>
+    <form class="form" role="form">
+
+        <input ng-model="job.name" type="text" class="form-control" placeholder="job name" required="" ><br>
+        <input ng-model="job.description" type="text" class="form-control" placeholder="job description" required="" ><br>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="addJob($event)" >Add Job</button>
+
+    </form>
+
+    <row ng-show="auth.profile.nickname">
+        <span ng-show="auth.profile.nickname">Logged In name is {{auth.profile.nickname}}</span>
+    </row>
+
+</div>
+ 
