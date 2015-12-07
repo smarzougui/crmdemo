@@ -17,14 +17,14 @@ Built don top of Angular-Material
 
 * Addint types of users: candidate, recruiter and hiring manager.
 * Persist connection for all authentication methods (auth0 and login/pass)
-* Integrating Auth0*
+* Integrating Auth0
 * Using Auth0 to connect to FireBase
 * ~~create data for each connected user
-* Conceive a stored relations betweens users (to be defined)
+* ~~Conceive a stored relations betweens users (to be defined)
 * ~~Make 3 way binding for booking slots (no user identification)
 * Integrate the scheduling
 * fix the issue of success message do not appear.
-* add user ito the data by email.
+* ~~add user ito the data by email.
 
 
 ### Installing procedure
