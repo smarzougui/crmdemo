@@ -3,7 +3,6 @@
 var $scope;
 var $firebaseAuth;
 
-
 angular.module('crmDemo.home').controller('HomeController', HomeController);
 HomeController.$inject = ['$scope', '$firebaseAuth', 'auth', 'store', '$firebaseArray', '$firebaseObject'];
 
@@ -31,8 +30,6 @@ function HomeController($scope, firebaseAuth, auth, store, $firebaseArray, $fire
     var syncObject = $firebaseObject(friendsRef);
     // three way data binding
     syncObject.$bindTo($scope, 'days');
-    console.log("$scope=", $scope);
-
 
 
     $scope.reset = function() {
@@ -83,7 +80,6 @@ function HomeController($scope, firebaseAuth, auth, store, $firebaseArray, $fire
                 console.log("Reset successful !");
             }
         });
-
 
     }
 

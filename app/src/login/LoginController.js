@@ -16,11 +16,9 @@ function LoginController($scope, firebaseAuth, auth, store, $firebaseArray) {
 
     $scope.user = {};
 
-
     // Grab the token
     var firebaseToken = store.get('firebaseToken');
     console.log("firebaseToken=", firebaseToken);
-
 
     $scope.SignIn = function(event) {
         event.preventDefault();  // To prevent form refresh
@@ -82,10 +80,6 @@ function LoginController($scope, firebaseAuth, auth, store, $firebaseArray) {
 
         var friends = $firebaseArray(friendsRef);
         friends.$add({name: 'Hey John'});
-
-
-
-
 
 
     }
