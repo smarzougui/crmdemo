@@ -48,7 +48,7 @@ function AddUserController($scope,
             password: password
         }, function(error, userData) {
             if (error) {
-                console.log("Error creating user:", error);
+                console.log("Error creating user:" + email, error);
             } else {
                 console.log("Successfully created user account with uid:", userData.uid);
                 $scope.success = true;
@@ -57,7 +57,7 @@ function AddUserController($scope,
 
 
 
-                var usersRef = firebaseObj.child("users/" + email.replace('.', ','));
+                var usersRef = firebaseObj.child("users/" + email.replace(/\./g, ','));
                 usersRef.set({
                     days: userInitDataService,
                     manager: 'null'

@@ -19,12 +19,12 @@ var app = angular
         'ngCookies'
     ])
     .constant('CONFIG', {
-        'APP_NAME' : 'My Awesome App',
-        'APP_VERSION' : '0.0.0',
-        'GOOGLE_ANALYTICS_ID' : '',
-        'BASE_URL' : '',
-        'SYSTEM_LANGUAGE' : '',
-        'FIREBASE' : 'https://luminous-fire-4441.firebaseio.com',
+        'APP_NAME': 'My Awesome App',
+        'APP_VERSION': '0.0.0',
+        'GOOGLE_ANALYTICS_ID': '',
+        'BASE_URL': '',
+        'SYSTEM_LANGUAGE': '',
+        'FIREBASE': 'https://luminous-fire-4441.firebaseio.com',
         'TEMP_TOKEN': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NybS1kZW1vLmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDExMjczMjM3MjI2ODg5MDM4NTIxMyIsImF1ZCI6InA1b3F1MXhjNFU3QThrM3ZpbVdpVjd0QXBsTkxONlp6IiwiZXhwIjoxNDQ5NjQ4MzY5LCJpYXQiOjE0NDk2MTIzNjksInYiOjAsImQiOnsiZmJfaWQiOiJnb29nbGUtb2F1dGgyfDExMjczMjM3MjI2ODg5MDM4NTIxMyJ9LCJhenAiOiJwNW9xdTF4YzRVN0E4azN2aW1XaVY3dEFwbE5MTjZaeiJ9.p7SwcizSbWRfgOysnX-UP6EXCl70LxaS1E4BjQQgLW4'
     })
     .config(function($mdThemingProvider, $mdIconProvider, authProvider, $httpProvider, jwtInterceptorProvider) {
@@ -59,10 +59,9 @@ var app = angular
                 store.set('token', idToken);
                 console.log("profile=", profile);
                 console.log("idToken=", idToken);
-
-
+                $location.path('/home');
             });
-            $location.path('/');
+
         });
 
         authProvider.on('loginFailure', function() {
@@ -102,7 +101,7 @@ var app = angular
         auth.hookEvents();
 
 
-        //Keep User loggedIn after page refresh
+        //Keep User loggedIn after page refresh, Authenticating the user on page refresh
         $rootScope.$on('$locationChangeStart', function() {
             var token = store.get('token');
             if (token) {
@@ -112,6 +111,7 @@ var app = angular
                     }
                 } else {
                     // Either show the login page or use the refresh token to get a new idToken
+                    //TODO: add a Redirection to the Login page.
                     $location.path('/login');
                 }
             }

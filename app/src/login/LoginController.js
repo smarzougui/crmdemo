@@ -38,7 +38,7 @@ function LoginController($scope, firebaseAuth, auth, store, $firebaseArray, $loc
             standalone: true
         }, function(profile, token, accessToken, state, refreshToken) {
             // Login was successful
-            // We need to save the information from the login
+            // keep the user logged in by saving the token and profile
             store.set('profile', profile);
             store.set('token', token);
             store.set('refreshToken', refreshToken);
@@ -47,7 +47,6 @@ function LoginController($scope, firebaseAuth, auth, store, $firebaseArray, $loc
             }).then(function(delegation) {
                 console.log("delegation=", delegation);
                 store.set('firebaseToken', delegation.id_token);
-                $state.go('app.categories');
             }, function(error) {
                 console.log("There was an error getting the firebase token", error);
             })
@@ -87,26 +86,7 @@ function LoginController($scope, firebaseAuth, auth, store, $firebaseArray, $loc
         auth.signout();
         store.remove('profile');
         store.remove('token');
-    }
-
-    $scope.testFBDelegation = function() {
-
-        var friendsRef = new Firebase("https://luminous-fire-4441.firebaseio.com/days");
-// Here we're using the Firebase Token we stored after login
-
-        var token = CONFIG.TEMP_TOKEN;
-        friendsRef.authWithCustomToken(token, function(error, auth) {
-            if (error) {
-                console.log("Authentication Failed!", error);
-            } else {
-                console.log("Authenticated successfully with payload:", auth);
-            }
-        });
-
-        var friends = $firebaseArray(friendsRef);
-        friends.$add({name: 'Hey John'});
-
-
+        store.remove('firebaseToken');
     }
 
 }

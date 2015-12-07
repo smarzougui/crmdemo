@@ -32,9 +32,14 @@ function HomeController($scope,
     $scope.user = {};
 
 
-    var friendsRef = new Firebase(CONFIG.FIREBASE + "/days");
+    var userID = store.get('profile').email.replace(/\./g, ',');   //The email as stored in FireBase.
+
+
+    var friendsRef = new Firebase(CONFIG.FIREBASE + '/users/' + userID + '/days');
     var token = CONFIG.TEMP_TOKEN;
-    friendsRef.authWithCustomToken(token, function(error, auth) {
+    friendsRef.authWithCustomToken(store.get('firebaseToken'), function(error, auth) {
+        console.log("-->authWithCustomToken");
+
         if (error) {
             console.log("Authentication Failed!", error);
         } else {
