@@ -73,8 +73,12 @@ function LoginController($scope, firebaseAuth, auth, store, $firebaseArray, $loc
                 console.log("Login Failed!", error);
             } else {
                 console.log("Authenticated successfully with payload:", authData);
-                $scope.$apply(function() { $location.path("/home"); });
+                $scope.$apply(function() {
+                    $location.path("/home");
+                });
             }
+        }, {
+            remember: "sessionOnly"
         });
 
     }
@@ -90,7 +94,7 @@ function LoginController($scope, firebaseAuth, auth, store, $firebaseArray, $loc
         var friendsRef = new Firebase("https://luminous-fire-4441.firebaseio.com/days");
 // Here we're using the Firebase Token we stored after login
 
-        var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiU2Fmd2VuIE1hcnpvdWd1aSIsImVtYWlsIjoic2Fmd2VuQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczovL2NybS1kZW1vLmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDExMjczMjM3MjI2ODg5MDM4NTIxMyIsImF1ZCI6InA1b3F1MXhjNFU3QThrM3ZpbVdpVjd0QXBsTkxONlp6IiwiZXhwIjoxNDQ5NDU1MjE3LCJpYXQiOjE0NDk0MTkyMTcsInYiOjAsImQiOnsiZmJfaWQiOiJnb29nbGUtb2F1dGgyfDExMjczMjM3MjI2ODg5MDM4NTIxMyJ9LCJhenAiOiJwNW9xdTF4YzRVN0E4azN2aW1XaVY3dEFwbE5MTjZaeiJ9.Y_LoyEK89W-F_r1qCGUhH-XfURVYF2Ts_bL1uMxMQuk";
+        var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NybS1kZW1vLmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDExMjczMjM3MjI2ODg5MDM4NTIxMyIsImF1ZCI6InA1b3F1MXhjNFU3QThrM3ZpbVdpVjd0QXBsTkxONlp6IiwiZXhwIjoxNDQ5NjQ4MzY5LCJpYXQiOjE0NDk2MTIzNjksInYiOjAsImQiOnsiZmJfaWQiOiJnb29nbGUtb2F1dGgyfDExMjczMjM3MjI2ODg5MDM4NTIxMyJ9LCJhenAiOiJwNW9xdTF4YzRVN0E4azN2aW1XaVY3dEFwbE5MTjZaeiJ9.p7SwcizSbWRfgOysnX-UP6EXCl70LxaS1E4BjQQgLW4";
         friendsRef.authWithCustomToken(token, function(error, auth) {
             if (error) {
                 console.log("Authentication Failed!", error);

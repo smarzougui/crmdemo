@@ -8,6 +8,7 @@ var app = angular
     .module('crmDemo', [
         'crmDemo.login',
         'crmDemo.home',
+        'crmDemo.addUser',
         'ngMaterial',
         'users',
         'ngRoute',
