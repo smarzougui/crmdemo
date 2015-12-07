@@ -1,31 +1,36 @@
 <div class="row">
-    Connected User: <span><b>{{email}}</b></span>
-
-    type = {{type}}
+    Connected User: <span><b>{{email}}</b></span>, type = {{type}}
 
 </div>
 <div class="container" ng-app="crmDemo" layout="row" ng-cloak>
 
-    <div class="row">
+    <p class="text-center">
+        <a href="#" class="btn btn-primary" ng-click="reset()">Reset</a>
+        <a href="#" class="btn btn-primary" ng-click="logout()">logOut</a>
+    </p>
 
-        <p class="text-center">
-            <a href="#" class="btn btn-primary" ng-click="reset()">Reset</a>
-            <a href="#" class="btn btn-primary" ng-click="logout()">logOut</a>
-        </p>
 
-        <div class="col-md-2 text-center" ng-repeat="day in days">
 
-            <h>{{ day.name }}</h>
 
-            <div class="time-slot" ng-repeat="slot in day.slots">
+    <div class="container-fluid">
+        Jobs list
+        <select>
+            <option ng-repeat="job in jobs" title="{{job.name}}" value="{{job.name}}">{{job.name}}</option>
+        </select>
+    </div>
 
-                <input type="checkbox" id="{{ day.name }}-{{ $index }}" ng-model="slot.booked">
+    <div class="container-fluid">
+        Managers list
+        <select>
+            <option ng-repeat="m in managers">{{m.email}}</option>
+        </select>
+    </div>
 
-                <label class="time-slot" for="{{ day.name }}-{{ $index }}">{{ slot.time }} <br>
-                    <span ng-if="slot.booked">Booked</span> <span ng-if="!slot.booked">Available</span> </label>
-
-            </div>
-        </div>
+    <div class="container-fluid">
+        Candidates List
+        <select>
+            <option ng-repeat="m in managers">{{m.email}}</option>
+        </select>
     </div>
 
 

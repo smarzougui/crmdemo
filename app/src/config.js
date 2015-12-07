@@ -10,6 +10,8 @@ var app = angular
         'crmDemo.addUser',
         'crmDemo.addJob',
         'crmDemo.home-candidate',
+        'crmDemo.home-recruiter',
+        'crmDemo.home-manager',
         'ngMaterial',
         'ngRoute',
         'auth0',

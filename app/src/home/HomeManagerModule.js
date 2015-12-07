@@ -1,12 +1,12 @@
 // Home Module
 
-angular.module('crmDemo.home', ['ngRoute'])
+angular.module('crmDemo.home-manager', ['ngRoute'])
 
 // Declared route
     .config(['$routeProvider', function($routeProvider) {
-        $routeProvider.when('/home', {
-            templateUrl: 'src/home/home.html',
-            controller: 'HomeController',
+        $routeProvider.when('/home-manager', {
+            templateUrl: 'src/home/home-manager.html',
+            controller: 'HomeManagerController',
             requiresLogin: true
         });
     }])

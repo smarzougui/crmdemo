@@ -65,7 +65,7 @@ function AddUserController($scope,
                 var usersRef = firebaseObj.child("users/" + email.replace(/\./g, ','));
                 usersRef.set({
                     days: userInitDataService,
-                    manager: 'null',
+                    email: email,
                     type: type
                 });
 

@@ -3,8 +3,8 @@
 var $scope;
 var $firebaseAuth;
 
-angular.module('crmDemo.home').controller('HomeController', HomeController);
-HomeController.$inject = [
+angular.module('crmDemo.home-manager').controller('HomeManagerController', HomeManagerController);
+HomeManagerController.$inject = [
     '$scope',
     '$firebaseAuth',
     'auth',
@@ -14,7 +14,7 @@ HomeController.$inject = [
     'CONFIG',
     'userInitDataService'];
 
-function HomeController($scope,
+function HomeManagerController($scope,
                         firebaseAuth,
                         auth,
                         store,

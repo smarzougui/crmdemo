@@ -6,8 +6,8 @@
     <div class="alert alert-success" role="alert" ng-show="success">Successfully created {{user.type}}</div>
     <form class="form-signin" role="form">
 
-
-        <input type="radio"  ng-model="user.type" ng-checked="true" value="candidate"> Candidate</input>
+        <div ng-init="user.type='candidate'" />
+        <input type="radio"  ng-model="user.type" value="candidate"> Candidate</input>
         <input type="radio" ng-model="user.type" value="manager"> Manager </input>
 
         <input ng-model="user.email" type="email" class="form-control" placeholder="Email address" ><br>
