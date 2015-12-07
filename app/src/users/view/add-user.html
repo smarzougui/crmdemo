@@ -5,6 +5,11 @@
 
     <div class="alert alert-success" role="alert" ng-show="success">Successfully created user account </div>
     <form class="form-signin" role="form">
+
+
+        <input type="radio"  ng-model="user.type" ng-checked="true" value="candidate"> Candidate</input>
+        <input type="radio" ng-model="user.type" value="manager"> Manager </input>
+
         <input ng-model="user.email" type="email" class="form-control" placeholder="Email address" required="" value="recruiter3@gmail.com"><br>
         <input ng-model="user.password" type="password" class="form-control" placeholder="Password" required="" value="recruiter3">
         <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="connectAndAddUser($event)" >Add user</button>

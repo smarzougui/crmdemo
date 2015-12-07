@@ -24,7 +24,11 @@ var app = angular
         'GOOGLE_ANALYTICS_ID': '',
         'BASE_URL': '',
         'SYSTEM_LANGUAGE': '',
-        'FIREBASE': 'https://luminous-fire-4441.firebaseio.com'
+        'FIREBASE': 'https://luminous-fire-4441.firebaseio.com',
+        'USER_TYPE': {
+            'MANAGER': 'manager',
+            'CANDIDATE': 'candidate'
+        }
     })
     .config(function($mdThemingProvider, $mdIconProvider, authProvider, $httpProvider, jwtInterceptorProvider) {
         $mdIconProvider

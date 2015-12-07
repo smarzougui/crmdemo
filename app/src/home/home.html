@@ -1,3 +1,6 @@
+<div class="row">
+    Connected User: <span><b>{{email}}</b></span>
+</div>
 <div class="container" ng-app="crmDemo" layout="row" ng-controller="UserController as ul" ng-cloak>
 
     <div class="row">
@@ -7,7 +10,6 @@
             <a href="#" class="btn btn-primary" ng-click="logout()">logOut</a>
         </p>
 
-
         <div class="col-md-2 text-center" ng-repeat="day in days">
 
             <h>{{ day.name }}</h>
@@ -16,16 +18,12 @@
 
                 <input type="checkbox" id="{{ day.name }}-{{ $index }}" ng-model="slot.booked">
 
-                <label  class="time-slot" for="{{ day.name }}-{{ $index }}">{{ slot.time }}
-                    <br> <span ng-if="slot.booked">Booked</span>
-                    <span ng-if="!slot.booked">Available</span>
-                </label>
+                <label class="time-slot" for="{{ day.name }}-{{ $index }}">{{ slot.time }} <br>
+                    <span ng-if="slot.booked">Booked</span> <span ng-if="!slot.booked">Available</span> </label>
 
             </div>
         </div>
     </div>
-
-
 
 
 </div>

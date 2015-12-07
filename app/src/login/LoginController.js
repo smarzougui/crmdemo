@@ -72,6 +72,10 @@ function LoginController($scope, firebaseAuth, auth, store, $firebaseArray, $loc
                 console.log("Login Failed!", error);
             } else {
                 console.log("Authenticated successfully with payload:", authData);
+                console.log("authData.token=", authData.token);
+                store.set('token', authData.token);
+                store.set('profile', {email: authData.password.email});
+
                 $scope.$apply(function() {
                     $location.path("/home");
                 });
@@ -79,7 +83,6 @@ function LoginController($scope, firebaseAuth, auth, store, $firebaseArray, $loc
         }, {
             remember: "sessionOnly"
         });
-
     }
 
     $scope.logout = function() {

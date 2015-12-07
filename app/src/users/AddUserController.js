@@ -40,6 +40,7 @@ function AddUserController($scope,
         event.preventDefault();  // To prevent form refresh
         var email = $scope.user.email;
         var password = $scope.user.password;
+        var type = $scope.user.type;
 
         var firebaseObj = new Firebase(CONFIG.FIREBASE);
 
@@ -56,11 +57,11 @@ function AddUserController($scope,
 
 
 
-
                 var usersRef = firebaseObj.child("users/" + email.replace(/\./g, ','));
                 usersRef.set({
                     days: userInitDataService,
-                    manager: 'null'
+                    manager: 'null',
+                    type: type
                 });
 
 

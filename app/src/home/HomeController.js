@@ -23,21 +23,29 @@ function HomeController($scope,
                         CONFIG,
                         userInitDataService) {
 
-    var self = this;
+    var self = this,
+        userID,
+        firebaseObjRoot,
+        friendsRefUser,
+        friendsRefDays,
+        friendsRefUserType;
 
     $firebaseAuth = firebaseAuth;
     $scope.auth = auth;
     $scope.store = store;
 
     $scope.user = {};
+    $scope.userType = {};
 
 
-    var userID = store.get('profile').email.replace(/\./g, ',');   //The email as stored in FireBase.
+    userID = store.get('profile').email.replace(/\./g, ',');   //The email as stored in FireBase.
+    $scope.email = store.get('profile').email;
 
 
-    var firebaseObjRoot = new Firebase(CONFIG.FIREBASE);
-    var friendsRefUser = new Firebase(CONFIG.FIREBASE + '/users/' + userID);
-    var friendsRefDays = new Firebase(CONFIG.FIREBASE + '/users/' + userID + '/days');
+    firebaseObjRoot = new Firebase(CONFIG.FIREBASE);
+    friendsRefUser = new Firebase(CONFIG.FIREBASE + '/users/' + userID);
+    friendsRefUserType = new Firebase(CONFIG.FIREBASE + '/users/' + userID + '/type');
+    friendsRefDays = new Firebase(CONFIG.FIREBASE + '/users/' + userID + '/days');
 
     friendsRefUser.authWithCustomToken(store.get('firebaseToken'), function(error, auth) {
         console.log("-->authWithCustomToken");
@@ -60,16 +68,12 @@ function HomeController($scope,
     syncObject.$bindTo($scope, 'days');
     $scope.reset = function() {
         var fb = $firebaseArray(friendsRefDays);
-        friendsRefDays.set( userInitDataService , function (err) {
+        friendsRefDays.set(userInitDataService, function(err) {
             if (!err) {
                 console.log("Reset successful !");
             }
         });
     }
-
-
-
-
 
     friendsRefUser.once("value", function(snapshot) {
 
@@ -85,13 +89,19 @@ function HomeController($scope,
         } else {
             console.log("-->existing user, No problem, loading Data");
 
+            // Attach an asynchronous callback to read the data at our posts reference
+            friendsRefUserType.on("value", function(snapshot) {
+                console.log("snapshot.val()=", snapshot.val());
+                $scope.userType = snapshot.val();
+
+            }, function(errorObject) {
+                console.log("The read failed: " + errorObject.code);
+            });
+
+
         }
 
     });
-
-
-
-
 
 
     $scope.logout = function() {
