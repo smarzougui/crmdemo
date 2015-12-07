@@ -1,6 +1,12 @@
 <div class="container" ng-app="crmDemo" layout="row" ng-controller="UserController as ul" ng-cloak>
 
-    <div class="row times">
+    <div class="row">
+
+        <p class="text-center">
+            <a href="#" class="btn btn-primary" ng-click="reset()">Reset</a>
+            <a href="#" class="btn btn-primary" ng-click="logout()">logOut</a>
+        </p>
+
 
         <div class="col-md-2 text-center" ng-repeat="day in days">
 
@@ -17,10 +23,9 @@
 
             </div>
         </div>
-
-        <p class="text-center">
-            <a href="#" class="btn btn-primary" ng-click="reset()">Reset</a>
-        </p>
-
     </div>
+
+
+
+
 </div>

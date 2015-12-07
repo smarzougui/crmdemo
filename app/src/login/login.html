@@ -3,11 +3,11 @@
         <h2>Login Page:</h2>
     </div>
     <form class="form-signin" role="form">
-        <input ng-model="user.email" type="email" class="form-control" placeholder="Email address" required="" autofocus=""><br>
-        <input ng-model="user.password" type="password" class="form-control" placeholder="Password" required="">
+        <input ng-model="user.email" type="email" class="form-control" placeholder="Email address" required="" autofocus="" value="recruiter3@gmail.com"><br>
+        <input ng-model="user.password" type="password" class="form-control" placeholder="Password" required="" value="recruiter3">
         <label class="checkbox"> <a href="#"> Sign Up</a> </label>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="SignIn($event)">Sign in</button>
-        <button class="btn btn-lg btn-info btn-block" ng-click="logout()">logOut</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="redurect()" >Sign in</button>
+        <button class="btn btn-lg btn-info btn-block" type="submit" ng-click="redurect()">AuthO Sign in</button>
     </form>
 
     <span ng-show="auth.profile.nickname">Logged In name is {{auth.profile.nickname}}</span>

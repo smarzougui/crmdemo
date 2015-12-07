@@ -83,6 +83,12 @@ function HomeController($scope, firebaseAuth, auth, store, $firebaseArray, $fire
 
     }
 
+    $scope.logout = function() {
+        auth.signout();
+        store.remove('profile');
+        store.remove('token');
+    }
+
     var _slots = function() {
         return {
             0900: {

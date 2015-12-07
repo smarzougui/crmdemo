@@ -6,9 +6,9 @@ var $firebaseAuth;
 
 
 angular.module('crmDemo.login').controller('LoginController', LoginController);
-LoginController.$inject = ['$scope', '$firebaseAuth', 'auth', 'store', '$firebaseArray'];
+LoginController.$inject = ['$scope', '$firebaseAuth', 'auth', 'store', '$firebaseArray', '$location'];
 
-function LoginController($scope, firebaseAuth, auth, store, $firebaseArray) {
+function LoginController($scope, firebaseAuth, auth, store, $firebaseArray, $location) {
 
     $firebaseAuth = firebaseAuth;
     $scope.auth = auth;
@@ -53,7 +53,29 @@ function LoginController($scope, firebaseAuth, auth, store, $firebaseArray) {
             })
         }, function(error) {
             console.log("There was an error logging in", error);
-        });;
+        });
+        ;
+
+    }
+
+    $scope.SignInLoginPassword = function(event) {
+        event.preventDefault();  // To prevent form refresh
+        var username = $scope.user.email;
+        var password = $scope.user.password;
+
+        var firebaseObj = new Firebase("https://luminous-fire-4441.firebaseio.com");
+
+        firebaseObj.authWithPassword({
+            email: username,
+            password: password
+        }, function(error, authData) {
+            if (error) {
+                console.log("Login Failed!", error);
+            } else {
+                console.log("Authenticated successfully with payload:", authData);
+                $scope.$apply(function() { $location.path("/home"); });
+            }
+        });
 
     }
 
@@ -63,8 +85,7 @@ function LoginController($scope, firebaseAuth, auth, store, $firebaseArray) {
         store.remove('token');
     }
 
-    $scope.testFBDelegation = function () {
-
+    $scope.testFBDelegation = function() {
 
         var friendsRef = new Firebase("https://luminous-fire-4441.firebaseio.com/days");
 // Here we're using the Firebase Token we stored after login
