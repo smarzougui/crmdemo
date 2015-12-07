@@ -9,10 +9,7 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
 
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
-    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="./bower_components/angular-material/angular-material.css"/>
+    <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="assets/app.css"/>
 
 </head>
@@ -21,29 +18,31 @@
 
 
 <div class="container">
-    <div class="header">
-        <ul class="nav nav-pills pull-right">
-            <li class="active"><a ng-href="#">Test button</a></li>
-        </ul>
-        <h3 class="text-muted">Schedule</h3>
 
+    <div class="header">
         <div class="row">
             <form class="form-horizontal col-md-8 col-md-offset-2" role="form">
                 <div class="input-group">
-
 
                 </div>
             </form>
         </div>
     </div>
 
+
+
     <div ng-view=""></div>
+
+
 
     <div class="footer">
         <p><span class="glyphicon glyphicon-th-list"></span> Demo CRM application</p>
     </div>
 </div>
 
+
+<script src="./bower_components/jquery/dist/jquery.min.js"></script>
+<script src="./assets/bootstrap/js/bootstrap.min.js"></script>
 
 <script src="./bower_components/angular/angular.js"></script>
 <script src="./bower_components/angular-route/angular-route.js"></script>
