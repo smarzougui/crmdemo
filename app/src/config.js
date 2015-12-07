@@ -7,9 +7,9 @@
 var app = angular
     .module('crmDemo', [
         'crmDemo.login',
-        'crmDemo.home',
         'crmDemo.addUser',
         'crmDemo.addJob',
+        'crmDemo.home-candidate',
         'ngMaterial',
         'ngRoute',
         'auth0',
@@ -127,7 +127,8 @@ var app = angular
 app.config(['$routeProvider', function($routeProvider) {
 
     $routeProvider.otherwise({
-        redirectTo: '/home'
+        //TODO: put the right redirection
+        redirectTo: '/home-candidate'
     });
 
 }])

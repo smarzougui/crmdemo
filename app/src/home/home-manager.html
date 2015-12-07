@@ -1,0 +1,32 @@
+<div class="row">
+    Connected User: <span><b>{{email}}</b></span>
+
+    type = {{type}}
+
+</div>
+<div class="container" ng-app="crmDemo" layout="row" ng-cloak>
+
+    <div class="row">
+
+        <p class="text-center">
+            <a href="#" class="btn btn-primary" ng-click="reset()">Reset</a>
+            <a href="#" class="btn btn-primary" ng-click="logout()">logOut</a>
+        </p>
+
+        <div class="col-md-2 text-center" ng-repeat="day in days">
+
+            <h>{{ day.name }}</h>
+
+            <div class="time-slot" ng-repeat="slot in day.slots">
+
+                <input type="checkbox" id="{{ day.name }}-{{ $index }}" ng-model="slot.booked">
+
+                <label class="time-slot" for="{{ day.name }}-{{ $index }}">{{ slot.time }} <br>
+                    <span ng-if="slot.booked">Booked</span> <span ng-if="!slot.booked">Available</span> </label>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>

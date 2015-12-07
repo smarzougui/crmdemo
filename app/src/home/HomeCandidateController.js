@@ -3,8 +3,8 @@
 var $scope;
 var $firebaseAuth;
 
-angular.module('crmDemo.home').controller('HomeController', HomeController);
-HomeController.$inject = [
+angular.module('crmDemo.home-candidate').controller('HomeCandidateController', HomeCandidateController);
+HomeCandidateController.$inject = [
     '$scope',
     '$firebaseAuth',
     'auth',
@@ -14,7 +14,7 @@ HomeController.$inject = [
     'CONFIG',
     'userInitDataService'];
 
-function HomeController($scope,
+function HomeCandidateController($scope,
                         firebaseAuth,
                         auth,
                         store,
@@ -37,19 +37,16 @@ function HomeController($scope,
     $scope.user = {};
     $scope.userType = {};
 
+    $scope.type = store.get('profile').type;
 
     userID = store.get('profile').email.replace(/\./g, ',');   //The email as stored in FireBase.
     $scope.email = store.get('profile').email;
 
-
     firebaseObjRoot = new Firebase(CONFIG.FIREBASE);
     friendsRefUser = new Firebase(CONFIG.FIREBASE + '/users/' + userID);
-    friendsRefUserType = new Firebase(CONFIG.FIREBASE + '/users/' + userID + '/type');
     friendsRefDays = new Firebase(CONFIG.FIREBASE + '/users/' + userID + '/days');
 
     friendsRefUser.authWithCustomToken(store.get('firebaseToken'), function(error, auth) {
-        console.log("-->authWithCustomToken");
-
         if (error) {
             console.log("Authentication Failed!", error);
         } else {
@@ -57,12 +54,19 @@ function HomeController($scope,
         }
     });
 
+    friendsRefUser.once("value", function(snapshot) {
+        if (!snapshot.exists()) {       //New user, init the user Data
+            var usersRef = firebaseObjRoot.child("users/" + store.get('profile').email.replace(/\./g, ','));
+            usersRef.set({
+                days: userInitDataService,
+                manager: 'null'
+            });
+        } else {
 
-    //Check if it is a new User ?
+        }
+    });
 
-    //If new user, create the init data.
-
-
+    //Binding DATA
     var syncObject = $firebaseObject(friendsRefDays);
     // three way data binding
     syncObject.$bindTo($scope, 'days');
@@ -74,35 +78,6 @@ function HomeController($scope,
             }
         });
     }
-
-    friendsRefUser.once("value", function(snapshot) {
-
-        if (!snapshot.exists()) {
-            //New user, init the user Data
-
-            var usersRef = firebaseObjRoot.child("users/" + store.get('profile').email.replace(/\./g, ','));
-            usersRef.set({
-                days: userInitDataService,
-                manager: 'null'
-            });
-
-        } else {
-            console.log("-->existing user, No problem, loading Data");
-
-            // Attach an asynchronous callback to read the data at our posts reference
-            friendsRefUserType.on("value", function(snapshot) {
-                console.log("snapshot.val()=", snapshot.val());
-                $scope.userType = snapshot.val();
-
-            }, function(errorObject) {
-                console.log("The read failed: " + errorObject.code);
-            });
-
-
-        }
-
-    });
-
 
     $scope.logout = function() {
         auth.signout();
