@@ -28,7 +28,8 @@ function HomeManagerController($scope,
         firebaseObjRoot,
         friendsRefUser,
         friendsRefDays,
-        friendsRefUserType;
+        friendsRefUserType,
+        friendsRefJobs;
 
     $firebaseAuth = firebaseAuth;
     $scope.auth = auth;
@@ -44,45 +45,32 @@ function HomeManagerController($scope,
 
     firebaseObjRoot = new Firebase(CONFIG.FIREBASE);
     friendsRefUser = new Firebase(CONFIG.FIREBASE + '/users/' + userID);
+    friendsRefUsers = new Firebase(CONFIG.FIREBASE + '/users');
     friendsRefDays = new Firebase(CONFIG.FIREBASE + '/users/' + userID + '/days');
+    friendsRefJobs = new Firebase(CONFIG.FIREBASE + '/jobs');
 
-    friendsRefUser.authWithCustomToken(store.get('firebaseToken'), function(error, auth) {
-        if (error) {
-            console.log("Authentication Failed!", error);
-        } else {
-            console.log("Authenticated successfully with payload:", auth);
-        }
-    });
 
-    friendsRefUser.once("value", function(snapshot) {
-        if (!snapshot.exists()) {       //New user, init the user Data
-            var usersRef = firebaseObjRoot.child("users/" + store.get('profile').email.replace(/\./g, ','));
-            usersRef.set({
-                days: userInitDataService,
-                manager: 'null'
-            });
-        } else {
+    //Jobs
+    var syncObject = $firebaseObject(friendsRefJobs);
+    syncObject.$bindTo($scope, 'jobs');
 
-        }
-    });
-
-    //Binding DATA
-    var syncObject = $firebaseObject(friendsRefDays);
-    // three way data binding
-    syncObject.$bindTo($scope, 'days');
-    $scope.reset = function() {
-        var fb = $firebaseArray(friendsRefDays);
-        friendsRefDays.set(userInitDataService, function(err) {
-            if (!err) {
-                console.log("Reset successful !");
-            }
+    //Managers
+    var syncObjectUsers = $firebaseObject(friendsRefUsers);
+    syncObjectUsers.$bindTo($scope, 'users').then(function(data) {
+        $scope.managers = _.filter($scope.users, function(el) {
+            return el !== null ? (!!el.type ? (el.type == "manager") : false) : false;
         });
-    }
+
+
+    });
+
 
     $scope.logout = function() {
         auth.signout();
         store.remove('profile');
         store.remove('token');
     }
+
+
 }
 
