@@ -38,7 +38,8 @@ function HomeCandidateController($scope,
     $scope.userType = {};
 
     $scope.type = store.get('profile').type;
-
+    console.log("store.get('profile')=", store.get('profile'));
+    
     userID = store.get('profile').email.replace(/\./g, ',');   //The email as stored in FireBase.
     $scope.email = store.get('profile').email;
 

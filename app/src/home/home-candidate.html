@@ -10,7 +10,6 @@
                     <li class="dropdown">
                         <a role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i>
                             {{type | uppercase}} <i class="caret"></i>
-
                         </a>
                         <ul class="dropdown-menu">
                             <li>
@@ -27,50 +26,21 @@
                     <li class="active">
                         <a>Dashboard</a>
                     </li>
-                    <li class="dropdown">
-                        <a role="button" class="dropdown-toggle" data-toggle="dropdown">Users <i class="caret"></i>
-
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a tabindex="-1">User List</a>
-                            </li>
-                            <li>
-                                <a tabindex="-1">Search</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="dropdown">
-                        <a role="button" class="dropdown-toggle" data-toggle="dropdown">Jobs <i class="caret"></i>
-
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a tabindex="-1">Jobs List</a>
-                            </li>
-                            <li>
-                                <a tabindex="-1">Search</a>
-                            </li>
-                        </ul>
-                    </li>
                 </ul>
-
             </div>
             <!--/.nav-collapse -->
         </div>
     </div>
 </div>
-
 <div class="container" ng-app="crmDemo" layout="row" ng-cloak>
-
     <div class="block">
         <div class="navbar navbar-inner block-header">
             <div class="muted pull-left"><b>Schedule</b></div>
         </div>
-        <div class="block-content collapse in">
+        <div class="block-content collapse in sep-left-aside">
             <div style="float: left; width: 160px" class="col-md-2 text-center" ng-repeat="day in days">
                 <h4><i>{{ day.name }}</i></h4>
+
                 <div class="time-slot" ng-repeat="slot in day.slots">
                     <input type="checkbox" id="{{ day.name }}-{{ $index }}" ng-model="slot.booked">
                     <label class="time-slot" for="{{ day.name }}-{{ $index }}">{{ slot.time }} <br>
@@ -78,14 +48,9 @@
                 </div>
             </div>
         </div>
-
     </div>
-
-
 </div>
-
 <p class="">
     <a href="#" class="btn btn-primary" ng-click="reset()">Reset</a>
 </p>
-
 </div>

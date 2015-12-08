@@ -5,16 +5,17 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" >Recruitement CRM </a>
+            <a class="brand">Recruitement CRM </a>
+
             <div class="nav-collapse collapse">
                 <ul class="nav pull-right">
                     <li class="dropdown">
-                        <a  role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> {{type | uppercase}} <i class="caret"></i>
-
+                        <a role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i>
+                            {{type | uppercase}} <i class="caret"></i>
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a tabindex="-1" >Profile (<span><b>{{email}}</b></span>)</a>
+                                <a tabindex="-1">Profile (<span><b>{{email}}</b></span>)</a>
                             </li>
                             <li class="divider"></li>
                             <li>
@@ -25,11 +26,10 @@
                 </ul>
                 <ul class="nav">
                     <li>
-                        <a href="#/home-recruiter">Dashboard</a>
+                        <a href="#/home-manager">Dashboard</a>
                     </li>
                     <li class="dropdown">
-                        <a  role="button" class="dropdown-toggle" data-toggle="dropdown">Users <i class="caret"></i>
-
+                        <a role="button" class="dropdown-toggle" data-toggle="dropdown">Users <i class="caret"></i>
                         </a>
                         <ul class="dropdown-menu">
                             <li>
@@ -37,39 +37,31 @@
                             </li>
                         </ul>
                     </li>
-
                     <li class="dropdown">
-                        <a  role="button" class="dropdown-toggle" data-toggle="dropdown">Jobs <i class="caret"></i>
-
+                        <a role="button" class="dropdown-toggle" data-toggle="dropdown">Jobs <i class="caret"></i>
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a tabindex="-1" href="#/add-job">Jobs List</a>
+                                <a tabindex="-1" href="#/add-job">Add a job</a>
                             </li>
                         </ul>
                     </li>
                 </ul>
-
             </div>
             <!--/.nav-collapse -->
         </div>
     </div>
 </div>
-
-
 <div class="container" id="login">
     <div class="alert alert-success" role="alert" ng-show="success">Successfully created the Job: {{job.name}}</div>
     <form class="form-signin" role="form">
-
-        <input ng-model="job.name" type="text" class="form-control" placeholder="job name" required="" ><br>
-        <input ng-model="job.description" type="text" class="form-control" placeholder="job description" required="" ><br>
-        <button class="btn btn-large btn-primary" type="submit" ng-click="addJob($event)" >Add Job</button>
-
+        <input ng-model="job.name" type="text" class="form-control" placeholder="job name" required=""><br>
+        <input ng-model="job.description" type="text" class="form-control" placeholder="job description"
+               required=""><br>
+        <button class="btn btn-large btn-primary" type="submit" ng-click="addJob($event)">Add Job</button>
     </form>
-
     <row ng-show="auth.profile.nickname">
         <span ng-show="auth.profile.nickname">Logged In name is {{auth.profile.nickname}}</span>
     </row>
-
 </div>
  
