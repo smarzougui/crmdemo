@@ -1,8 +1,6 @@
 // Home controller
-
 var $scope;
 var $firebaseAuth;
-
 angular.module('crmDemo.home-recruiter').controller('HomeRecruiterController', HomeRecruiterController);
 HomeRecruiterController.$inject = [
     '$scope',
@@ -13,7 +11,6 @@ HomeRecruiterController.$inject = [
     '$firebaseObject',
     'CONFIG',
     'userInitDataService'];
-
 function HomeRecruiterController($scope,
                                  firebaseAuth,
                                  auth,
@@ -22,7 +19,6 @@ function HomeRecruiterController($scope,
                                  $firebaseObject,
                                  CONFIG,
                                  userInitDataService) {
-
     var self = this,
         userID,
         firebaseObjRoot,
@@ -30,21 +26,16 @@ function HomeRecruiterController($scope,
         friendsRefDays,
         friendsRefUserType,
         friendsRefJobs;
-
     $firebaseAuth = firebaseAuth;
     $scope.auth = auth;
     $scope.store = store;
-
     $scope.aff = {};
-    $scope.aff.job = {};
-    $scope.aff.managers = {};
-    $scope.aff.candidates = {};
-
+    $scope.aff.job = false;
+    $scope.aff.managers = false;
+    $scope.aff.candidates = false;
     $scope.user = {};
     $scope.userType = {};
-
     $scope.type = store.get('profile').type;
-
     userID = store.get('profile').email.replace(/\./g, ',');   //The email as stored in FireBase.
     $scope.email = store.get('profile').email;
 
@@ -53,57 +44,51 @@ function HomeRecruiterController($scope,
     friendsRefUsers = new Firebase(CONFIG.FIREBASE + '/users');
     friendsRefDays = new Firebase(CONFIG.FIREBASE + '/users/' + userID + '/days');
     friendsRefJobs = new Firebase(CONFIG.FIREBASE + '/jobs');
-
-
     //Jobs
     var syncObject = $firebaseObject(friendsRefJobs);
-    syncObject.$bindTo($scope, 'jobs').then(function(data) {
+    syncObject.$bindTo($scope, 'jobs').then(function (data) {
+
+        console.log("-->chere");
 
         //sync.
-        $scope.jobsView = _.filter(_.map($scope.jobs, function(el, key) {
-            if (!!el && el !="jobs") {
+        $scope.jobsView = _.filter(_.map($scope.jobs, function (el, key) {
+            if (!!el && el != "jobs") {
                 el.key = key;
             }
             return el;
-        }), function(el) {
+        }), function (el) {
             return !angular.isObject(el) ? false : true;
-        })
+        });
+        console.log("$scope.jobsView=", $scope.jobsView);
 
     });
-
     //Managers
     var syncObjectUsers = $firebaseObject(friendsRefUsers);
-    syncObjectUsers.$bindTo($scope, 'users').then(function(data) {
-        $scope.managers = _.filter($scope.users, function(el) {
+    syncObjectUsers.$bindTo($scope, 'users').then(function (data) {
+        $scope.managers = _.filter($scope.users, function (el) {
             return el !== null ? (!!el.type ? (el.type == "manager") : false) : false;
         });
-        $scope.candidates = _.filter($scope.users, function(el) {
+        $scope.candidates = _.filter($scope.users, function (el) {
             return el !== null ? (!!el.type ? (el.type == "candidate") : false) : false;
         });
     });
-
-    $scope.createAffectation = function() {
+    $scope.createAffectation = function () {
 
         //inserting the affectation
         var firebaseObj = new Firebase(CONFIG.FIREBASE + '/jobs/' + $scope.aff.job);
         var refManagers = firebaseObj.child("managers");
         refManagers.set($scope.aff.managers);
-
         var refCand = firebaseObj.child("candidates");
         refCand.set($scope.aff.candidates);
-
         //Adding to the table:
-        var jobName = _.find($scope.jobsView, function(el) {
+        var jobName = _.find($scope.jobsView, function (el) {
             return el.key == $scope.aff.job;
         }).name;
-
-        $('#affTable').append('<tr><td>1</td><td>'+ jobName +'</td>' +
-            '<td>'+ $scope.aff.managers.join() +'</td>' +
-            '<td>'+ $scope.aff.candidates.join() +'</td></tr>');
-
+        $('#affTable').append('<tr><td>1</td><td>' + jobName + '</td>' +
+            '<td>' + $scope.aff.managers.join() + '</td>' +
+            '<td>' + $scope.aff.candidates.join() + '</td></tr>');
     };
-
-    $scope.logout = function() {
+    $scope.logout = function () {
         auth.signout();
         store.remove('profile');
         store.remove('token');

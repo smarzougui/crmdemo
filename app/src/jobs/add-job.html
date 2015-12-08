@@ -54,11 +54,20 @@
 </div>
 <div class="container" id="login">
     <div class="alert alert-success" role="alert" ng-show="success">Successfully created the Job: {{job.name}}</div>
-    <form class="form-signin" role="form">
-        <input ng-model="job.name" type="text" class="form-control" placeholder="job name" required=""><br>
-        <input ng-model="job.description" type="text" class="form-control" placeholder="job description"
-               required=""><br>
-        <button class="btn btn-large btn-primary" type="submit" ng-click="addJob($event)">Add Job</button>
+    <form class="form-signin" name="form" novalidate="novalidate">
+        <input ng-model="job.name" name="name" required="required" type="text" class="form-control"
+               placeholder="job name" required=""><br>
+            <span class="label label-warning" ng-messages="form.name.$error" multiple
+                  ng-show="form.name.$invalid && (form.name.$touched || form.$submitted)">Field required</span>
+        <input ng-model="job.description" name="description" required="required" type="text" class="form-control"
+               placeholder="job description"
+               required="">
+        <span class="label label-warning" ng-messages="form.description.$error" multiple
+              ng-show="form.description.$invalid && (form.description.$touched || form.$submitted)">Field required</span>
+        <br>
+        <button ng-disabled="!form.$valid" class="btn btn-large btn-primary" type="submit" ng-click="addJob($event)">Add
+            Job
+        </button>
     </form>
     <row ng-show="auth.profile.nickname">
         <span ng-show="auth.profile.nickname">Logged In name is {{auth.profile.nickname}}</span>

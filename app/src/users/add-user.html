@@ -59,16 +59,18 @@
 <div class="container" id="login">
 
     <div class="alert alert-success" role="alert" ng-show="success">Successfully created {{user.type}}</div>
-    <form class="form-signin" role="form">
+    <form class="form-signin" name="form">
 
         <div ng-init="user.type='candidate'" />
         <input type="radio"  ng-model="user.type" value="candidate"> Candidate</input>
         <input type="radio" ng-model="user.type" value="manager"> Manager </input>
         <br>
         <br>
-        <input ng-model="user.email" type="email" class="form-control" placeholder="Email address" ><br>
-        <input ng-model="user.password" type="password" class="form-control" placeholder="Password" >
-        <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="connectAndAddUser($event)" >Add user</button>
+        <input ng-model="user.email" name="email" required="required" type="email" class="form-control" placeholder="Email address" ><br>
+        <span class="label label-warning" ng-messages="form.email.$error" multiple ng-show="form.email.$invalid && (form.email.$touched || form.$submitted)">Email required</span>
+        <input ng-model="user.password" name="password" required="required" type="password" class="form-control" placeholder="Password" >
+        <span class="label label-warning" ng-messages="form.password.$error" multiple ng-show="form.password.$invalid && (form.password.$touched || form.$submitted)">Password required</span>
+        <button ng-disabled="!form.$valid" class="btn btn-lg btn-primary btn-block" type="submit" ng-click="connectAndAddUser($event)" >Add user</button>
 
     </form>
 

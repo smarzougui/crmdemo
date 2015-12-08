@@ -33,6 +33,8 @@ function AddUserController($scope,
     $scope.auth = auth;
     $scope.store = store;
     $scope.success = false;
+    $scope.type= store.get('profile').type;
+    $scope.email= store.get('profile').email;
 
     $scope.user = {};
 
