@@ -24,8 +24,8 @@
                     </li>
                 </ul>
                 <ul class="nav">
-                    <li class="active">
-                        <a >Dashboard</a>
+                    <li>
+                        <a href="#/home-recruiter">Dashboard</a>
                     </li>
                     <li class="dropdown">
                         <a  role="button" class="dropdown-toggle" data-toggle="dropdown">Users <i class="caret"></i>
@@ -33,10 +33,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a tabindex="-1" >User List</a>
-                            </li>
-                            <li>
-                                <a tabindex="-1" >Search</a>
+                                <a tabindex="-1" href="#/add-user">Add User</a>
                             </li>
                         </ul>
                     </li>
@@ -47,10 +44,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a tabindex="-1" >Jobs List</a>
-                            </li>
-                            <li>
-                                <a tabindex="-1" >Search</a>
+                                <a tabindex="-1" href="#/add-job">Jobs List</a>
                             </li>
                         </ul>
                     </li>
@@ -62,10 +56,7 @@
     </div>
 </div>
 
-<div class="container">
-    <div class="center">
-        <h4>Add a user by Email :</h4>
-    </div>
+<div class="container" id="login">
 
     <div class="alert alert-success" role="alert" ng-show="success">Successfully created {{user.type}}</div>
     <form class="form-signin" role="form">
@@ -73,7 +64,8 @@
         <div ng-init="user.type='candidate'" />
         <input type="radio"  ng-model="user.type" value="candidate"> Candidate</input>
         <input type="radio" ng-model="user.type" value="manager"> Manager </input>
-
+        <br>
+        <br>
         <input ng-model="user.email" type="email" class="form-control" placeholder="Email address" ><br>
         <input ng-model="user.password" type="password" class="form-control" placeholder="Password" >
         <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="connectAndAddUser($event)" >Add user</button>

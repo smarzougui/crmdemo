@@ -1,13 +1,38 @@
-<div id="login"  class="container">
+<div id="login" class="container">
     <form class="form-signin" role="form">
         <h4 class="form-signin-heading">Please sign in</h4>
         <input ng-model="user.email" type="email" class="form-control" placeholder="Email address" required="" autofocus=""><br>
         <input ng-model="user.password" type="password" class="form-control" placeholder="Password" required="">
-        <label class="checkbox">
-            <input type="checkbox" value="remember-me"> Remember me
-        </label>
-        <button class="btn btn-large btn-primary" type="submit" ng-click="SignInLoginPassword($event)">Sign in</button>
+        <label class="checkbox"> <input type="checkbox" value="remember-me"> Remember me </label>
+        <button class="btn btn-large btn-primary" type="submit" ng-click="SignInLoginPassword($event)" data-toggle="tooltip" data-placement="left" title="Tooltip on left">
+            Sign in
+        </button>
         <button class="btn btn-large btn-info" type="submit" ng-click="SignIn($event)">Sign in</button>
+
+
+        <br>
+        <br>
+
+        <div class="alert alert-success" role="alert">
+            Recruiters<br>
+            login: r@gmail.com, r1@gmail.com<br>
+            pass: aaa
+            <br>
+        </div>
+        <div class="alert alert-info" role="alert">
+            Managers<br>
+            login: m1@gmail.com, m2@gmail.com, m3@gmail.com, m4@gmail.com<br>
+            pass: aaa
+            <br>
+        </div>
+        <div class="alert alert-warning" role="alert">
+            Candidates<br>
+            login: c1@gmail.com, c2@gmail.com, c3@gmail.com, c4@gmail.com<br>
+            pass: aaa
+            <br>
+        </div>
+
+
 
     </form>
 
@@ -15,7 +40,6 @@
         <span ng-show="auth.profile.nickname">Logged In name is {{auth.profile.nickname}}</span>
     </row>
 
-    <br>
-    <br>
+    <br> <br>
 </div>
 
