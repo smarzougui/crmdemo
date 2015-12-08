@@ -35,8 +35,12 @@ function HomeManagerController($scope,
     $scope.auth = auth;
     $scope.store = store;
 
+    var j = {}, days = {};
     $scope.user = {};
     $scope.userType = {};
+    var fbManJobs = {};
+    var final = [];
+    var interationCand = [];
 
     $scope.type = store.get('profile').type;
 
@@ -49,90 +53,42 @@ function HomeManagerController($scope,
     friendsRefDays = new Firebase(CONFIG.FIREBASE + '/users/' + userID + '/days');
     friendsRefJobs = new Firebase(CONFIG.FIREBASE + '/jobs');
 
-
     friendsRefJobs.on("value", function(snapshot) {
-        $scope.manJobs = _.filter(snapshot.val(), function(job) {
+        fbManJobs = _.filter(snapshot.val(), function(job) {
             return _.some(job.managers, function(manager) {
                 return manager === $scope.email
             });
         });
 
+        console.log("Start fbManJobs=", fbManJobs);
 
-        var j = {}, c = {};
-        $scope.final = [];
-
-        angular.forEach($scope.manJobs, function(job, index) {
-            var j = job;
-
-            angular.forEach(job.candidates, function(cand, index) {
-
-                c = {'days' : 'blabla' };
-
-
-                /*                // Get a database reference to our posts
-                 var ref = new Firebase(CONFIG.FIREBASE + '/users/' + c.replace(/\./g, ',') + '/days');
-                 ref.on("value", function(snapshot) {
-                 console.log(snapshot.val());
-                 }, function (errorObject) {
-                 console.log("The read failed: " + errorObject.code);
-                 });
-                 console.log("c=", c);*/
-
+        angular.forEach(fbManJobs, function(job, indexJ) {
+            j = job;
+            angular.forEach(job.candidates, function(cand, indexC) {
+                var ref = new Firebase(CONFIG.FIREBASE + '/users/' + cand.replace(/\./g, ',') + '/days');
+                ref.orderByKey().on("value", function(snapshot) {
+                    days = snapshot.val();
+                    interationCand.push({
+                        email: cand,
+                        days: days
+                    });
+                }, function(errorObject) {
+                    console.log("The read failed: " + errorObject.code);
+                });
             })
+
+            j.candidates = interationCand;
+            final.push(j);
 
         });
 
-        console.log("$scope.manJobs=", $scope.manJobs);
+        console.log("fbManJobs=", fbManJobs);
 
+
+        $scope.manJobs = fbManJobs;
     }, function(errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
-
-
-    /*
-     //Jobs
-
-     var arr = [];
-
-     angular.forEach($scope.manJobs, function(el) {
-     angular.forEach(el.candidates, function (c) {
-
-
-     // Get a database reference to our posts
-     var ref = new Firebase(CONFIG.FIREBASE + '/users/' + c.replace(/\./g, ',') + '/days');
-     ref.on("value", function(snapshot) {
-     console.log(snapshot.val());
-     }, function (errorObject) {
-     console.log("The read failed: " + errorObject.code);
-     });
-     console.log("c=", c);
-
-     })
-
-     });
-
-     console.log("$scope.manJobs=", $scope.manJobs);
-     */
-
-
-    /*
-
-     //Binding DATA
-     var userID = store.get('profile').email.replace(/\./g, ',');   //The email as stored in FireBase.
-     friendsRefDays = new Firebase(CONFIG.FIREBASE + '/users/' + userID + '/days');
-
-     var syncObject = $firebaseObject(friendsRefDays);
-     // three way data binding
-     syncObject.$bindTo($scope, 'days');
-
-
-
-
-
-
-
-     });
-     */
 
     //Managers
     var syncObjectUsers = $firebaseObject(friendsRefUsers);
@@ -140,17 +96,12 @@ function HomeManagerController($scope,
         $scope.managers = _.filter($scope.users, function(el) {
             return el !== null ? (!!el.type ? (el.type == "manager") : false) : false;
         });
-
-
     });
-
 
     $scope.logout = function() {
         auth.signout();
         store.remove('profile');
         store.remove('token');
     }
-
-
 }
 
