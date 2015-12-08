@@ -9,12 +9,12 @@
             <div class="nav-collapse collapse">
                 <ul class="nav pull-right">
                     <li class="dropdown">
-                        <a  role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> Recruiter <i class="caret"></i>
+                        <a  role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> {{type | uppercase}} <i class="caret"></i>
 
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a tabindex="-1" >Profile</a>
+                                <a tabindex="-1" >Profile (<span><b>{{email}}</b></span>)</a>
                             </li>
                             <li class="divider"></li>
                             <li>
@@ -64,52 +64,32 @@
 
 
 
-<div class="row">
-    Connected User: <span><b>{{email}}</b></span>, type = {{type}}
 
-</div>
 <div class="container" ng-app="crmDemo" layout="row" ng-cloak>
+<b>My Affected Jobs:</b>
 
-    <p class="text-center">
-        <a href="#" class="btn btn-primary" ng-click="reset()">Reset</a>
-        <a href="#" class="btn btn-primary" ng-click="logout()">logOut</a>
-    </p>
-
-
-    <div class="block" ng-repeat="job in jobs">
+    <div class="block" ng-repeat="job in manJobs">
         <div class="navbar navbar-inner block-header">
             <div class="muted pull-left"><b>{{job.name}}</b></div>
         </div>
-        <div> <i><b>{{job.description}}</b></i> </div>
+        <div class="col-md-offset-3"> <i>{{job.description}}</i> </div>
 
         <div class="block-content collapse in">
             <div class="block-content collapse in">
                 <table class="table table-striped">
-<!--                    <thead>
+                    <thead>
                     <tr>
-                        <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
+                        <th>Candidates:</th>
                     </tr>
-                    </thead>-->
+                    </thead>
                     <tbody>
-                    <tr ng-repeat="u in users">
-                        <td>{{u.email}}</td>
-                        <td>{{u.type}}</td>
+                    <tr ng-repeat="c in job.candidates">
+                        <td>{{c}}</td>
                     </tr>
 
                     </tbody>
                 </table>
             </div>
-
-
-
-
-
-
-
-
 
         </div>
     </div>

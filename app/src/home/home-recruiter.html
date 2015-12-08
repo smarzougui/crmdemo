@@ -1,48 +1,134 @@
-<div class="row">
-    Connected User: <span><b>{{email}}</b></span>, type = {{type}}
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" >Recruitement CRM </a>
+            <div class="nav-collapse collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a  role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> {{type | uppercase}} <i class="caret"></i>
+
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a tabindex="-1" >Profile (<span><b>{{email}}</b></span>)</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a tabindex="-1" ng-click="logout()">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav">
+                    <li class="active">
+                        <a >Dashboard</a>
+                    </li>
+                    <li class="dropdown">
+                        <a  role="button" class="dropdown-toggle" data-toggle="dropdown">Users <i class="caret"></i>
+
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a tabindex="-1" >User List</a>
+                            </li>
+                            <li>
+                                <a tabindex="-1" >Search</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a  role="button" class="dropdown-toggle" data-toggle="dropdown">Jobs <i class="caret"></i>
+
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a tabindex="-1" >Jobs List</a>
+                            </li>
+                            <li>
+                                <a tabindex="-1" >Search</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
 </div>
 
 <div class="container" ng-app="crmDemo" layout="row" ng-cloak>
 
-    <p class="text-center">
-        <a href="#" class="btn btn-primary" ng-click="reset()">Reset</a>
-        <a href="#" class="btn btn-primary" ng-click="logout()">logOut</a>
+    <div class="block">
+        <div class="navbar navbar-inner block-header">
+            <div class="muted pull-left"><b>Jobs list</b></div>
+        </div>
+        <div class="block-content collapse in">
+            <select ng-model="aff.job">
+                <option title="-- Select a job --" value="">-- Select a job --</option>
+                <option ng-repeat="job in jobsView" title="{{job.name}}" value="{{job.key}}">{{job.name}}</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="block">
+        <div class="navbar navbar-inner block-header">
+            <div class="muted pull-left"> <b>Managers list</b></div>
+        </div>
+        <div class="block-content collapse in">
+            <select multiple ng-model="aff.managers">
+                <option ng-repeat="m in managers">{{m.email}}</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="block">
+        <div class="navbar navbar-inner block-header">
+            <div class="muted pull-left"><b>Candidates List</b></div>
+        </div>
+        <div class="block-content collapse in">
+            <select multiple ng-model="aff.candidates" >
+                <option ng-repeat="c in candidates">{{c.email}}</option>
+            </select>
+        </div>
+    </div>
+
+    <p>
+        <a class="btn btn-primary" ng-click="createAffectation()"><b>Create Affectation</b></a>
     </p>
 
-
     <div class="block">
         <div class="navbar navbar-inner block-header">
-            <div class="muted pull-left">Jobs list</div>
+            <div class="muted pull-left">Affectation List</div>
         </div>
         <div class="block-content collapse in">
-            <select>
-                <option ng-repeat="job in jobs" title="{{job.name}}" value="{{job.name}}">{{job.name}}</option>
-            </select>
-        </div>
-    </div>
 
 
-    <div class="block">
-        <div class="navbar navbar-inner block-header">
-            <div class="muted pull-left"> Managers list</div>
-        </div>
-        <div class="block-content collapse in">
-            <select multiple >
-                <option ng-repeat="m in managers">{{m.email}}</option>
-            </select>
-        </div>
-    </div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Affectation #</th>
+                    <th>JOB</th>
+                    <th>Managers</th>
+                    <th>Candidates</th>
+                </tr>
+                </thead>
+                <tbody id="affTable">
+
+                </tbody>
+            </table>
 
 
-    <div class="block">
-        <div class="navbar navbar-inner block-header">
-            <div class="muted pull-left">Candidates List</div>
+
         </div>
-        <div class="block-content collapse in">
-            <select multiple >
-                <option ng-repeat="m in managers">{{m.email}}</option>
-            </select>
-        </div>
+
     </div>
 
 

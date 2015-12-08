@@ -9,12 +9,12 @@
             <div class="nav-collapse collapse">
                 <ul class="nav pull-right">
                     <li class="dropdown">
-                        <a  role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> Recruiter <i class="caret"></i>
+                        <a  role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> {{type | uppercase}} <i class="caret"></i>
 
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a tabindex="-1" >Profile</a>
+                                <a tabindex="-1" >Profile (<span><b>{{email}}</b></span>)</a>
                             </li>
                             <li class="divider"></li>
                             <li>
