@@ -52,7 +52,12 @@ function HomeRecruiterController($scope,
 
     //Jobs
     var syncObject = $firebaseObject(friendsRefJobs);
-    syncObject.$bindTo($scope, 'jobs');
+    syncObject.$bindTo($scope, 'jobs').then(function(data) {
+        console.log("$scope.jobs=", ($scope.jobs));
+        console.log("$scope.jobs=", Object.keys($scope.jobs));
+
+
+    });
 
     //Managers
     var syncObjectUsers = $firebaseObject(friendsRefUsers);
