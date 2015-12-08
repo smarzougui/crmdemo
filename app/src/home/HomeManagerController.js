@@ -15,13 +15,13 @@ HomeManagerController.$inject = [
     'userInitDataService'];
 
 function HomeManagerController($scope,
-                        firebaseAuth,
-                        auth,
-                        store,
-                        $firebaseArray,
-                        $firebaseObject,
-                        CONFIG,
-                        userInitDataService) {
+                               firebaseAuth,
+                               auth,
+                               store,
+                               $firebaseArray,
+                               $firebaseObject,
+                               CONFIG,
+                               userInitDataService) {
 
     var self = this,
         userID,
@@ -50,61 +50,89 @@ function HomeManagerController($scope,
     friendsRefJobs = new Firebase(CONFIG.FIREBASE + '/jobs');
 
 
-    //Jobs
-    var syncObject = $firebaseObject(friendsRefJobs);
-    syncObject.$bindTo($scope, 'jobs').then(function(data) {
-        $scope.manJobs = [];
-         angular.forEach($scope.jobs, function(el) {
-             if (!!el && el.managers) {
-                 if (_.contains (el.managers, "m2@gmail.com")) {
-                     //candidates day
-                     $scope.manJobs.push(el);
-                 }
-             }
+    friendsRefJobs.on("value", function(snapshot) {
+        $scope.manJobs = _.filter(snapshot.val(), function(job) {
+            return _.some(job.managers, function(manager) {
+                return manager === $scope.email
+            });
         });
 
 
+        var j = {}, c = {};
+        $scope.final = [];
 
-        var arr = [];
+        angular.forEach($scope.manJobs, function(job, index) {
+            var j = job;
 
-        angular.forEach($scope.manJobs, function(el) {
-            angular.forEach(el.candidates, function (c) {
+            angular.forEach(job.candidates, function(cand, index) {
+
+                c = {'days' : 'blabla' };
 
 
-                // Get a database reference to our posts
-                var ref = new Firebase(CONFIG.FIREBASE + '/users/' + c.replace(/\./g, ',') + '/days');
-                ref.on("value", function(snapshot) {
-                    console.log(snapshot.val());
-                }, function (errorObject) {
-                    console.log("The read failed: " + errorObject.code);
-                });
-                console.log("c=", c);
-                
+                /*                // Get a database reference to our posts
+                 var ref = new Firebase(CONFIG.FIREBASE + '/users/' + c.replace(/\./g, ',') + '/days');
+                 ref.on("value", function(snapshot) {
+                 console.log(snapshot.val());
+                 }, function (errorObject) {
+                 console.log("The read failed: " + errorObject.code);
+                 });
+                 console.log("c=", c);*/
+
             })
 
         });
 
         console.log("$scope.manJobs=", $scope.manJobs);
 
-
-
-        /*
-
-                //Binding DATA
-                var userID = store.get('profile').email.replace(/\./g, ',');   //The email as stored in FireBase.
-                friendsRefDays = new Firebase(CONFIG.FIREBASE + '/users/' + userID + '/days');
-
-                var syncObject = $firebaseObject(friendsRefDays);
-                // three way data binding
-                syncObject.$bindTo($scope, 'days');
-
-
-
-        */
-
-
-
+    }, function(errorObject) {
+        console.log("The read failed: " + errorObject.code);
     });
+
+
+    /*
+     //Jobs
+
+     var arr = [];
+
+     angular.forEach($scope.manJobs, function(el) {
+     angular.forEach(el.candidates, function (c) {
+
+
+     // Get a database reference to our posts
+     var ref = new Firebase(CONFIG.FIREBASE + '/users/' + c.replace(/\./g, ',') + '/days');
+     ref.on("value", function(snapshot) {
+     console.log(snapshot.val());
+     }, function (errorObject) {
+     console.log("The read failed: " + errorObject.code);
+     });
+     console.log("c=", c);
+
+     })
+
+     });
+
+     console.log("$scope.manJobs=", $scope.manJobs);
+     */
+
+
+    /*
+
+     //Binding DATA
+     var userID = store.get('profile').email.replace(/\./g, ',');   //The email as stored in FireBase.
+     friendsRefDays = new Firebase(CONFIG.FIREBASE + '/users/' + userID + '/days');
+
+     var syncObject = $firebaseObject(friendsRefDays);
+     // three way data binding
+     syncObject.$bindTo($scope, 'days');
+
+
+
+
+
+
+
+     });
+     */
 
     //Managers
     var syncObjectUsers = $firebaseObject(friendsRefUsers);
