@@ -2,19 +2,19 @@
     <div class="navbar-inner">
         <div class="container-fluid">
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </a>
-            <a class="brand" >Recruitement CRM </a>
+                <span class="icon-bar"></span> <span class="icon-bar"></span> </a> <a class="brand">Recruitement
+            CRM </a>
+
             <div class="nav-collapse collapse">
                 <ul class="nav pull-right">
                     <li class="dropdown">
-                        <a  role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> {{type | uppercase}} <i class="caret"></i>
+                        <a role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i>
+                            {{type | uppercase}} <i class="caret"></i>
 
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a tabindex="-1" >Profile (<span><b>{{email}}</b></span>)</a>
+                                <a tabindex="-1">Profile (<span><b>{{email}}</b></span>)</a>
                             </li>
                             <li class="divider"></li>
                             <li>
@@ -25,32 +25,32 @@
                 </ul>
                 <ul class="nav">
                     <li class="active">
-                        <a >Dashboard</a>
+                        <a>Dashboard</a>
                     </li>
                     <li class="dropdown">
-                        <a  role="button" class="dropdown-toggle" data-toggle="dropdown">Users <i class="caret"></i>
+                        <a role="button" class="dropdown-toggle" data-toggle="dropdown">Users <i class="caret"></i>
 
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a tabindex="-1" >User List</a>
+                                <a tabindex="-1">User List</a>
                             </li>
                             <li>
-                                <a tabindex="-1" >Search</a>
+                                <a tabindex="-1">Search</a>
                             </li>
                         </ul>
                     </li>
 
                     <li class="dropdown">
-                        <a  role="button" class="dropdown-toggle" data-toggle="dropdown">Jobs <i class="caret"></i>
+                        <a role="button" class="dropdown-toggle" data-toggle="dropdown">Jobs <i class="caret"></i>
 
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a tabindex="-1" >Jobs List</a>
+                                <a tabindex="-1">Jobs List</a>
                             </li>
                             <li>
-                                <a tabindex="-1" >Search</a>
+                                <a tabindex="-1">Search</a>
                             </li>
                         </ul>
                     </li>
@@ -63,37 +63,44 @@
 </div>
 
 
-
-
 <div class="container" ng-app="crmDemo" layout="row" ng-cloak>
-<b>My Affected Jobs:</b>
+    <b>My Affected Jobs:</b>
 
     <div class="block" ng-repeat="job in manJobs">
         <div class="navbar navbar-inner block-header">
-            <div class="muted pull-left"><b>{{job.name}}</b></div>
+            <div class="muted pull-left"><b><h4>Job: {{job.name}}</h4></b></div>
         </div>
-        <div class="col-md-offset-3"> <i>{{job.description}}</i> </div>
+        <div class="col-md-offset-3"><i>{{job.description}}</i></div>
 
         <div class="block-content collapse in">
             <div class="block-content collapse in">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Candidates:</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="c in job.candidates">
-                        <td>{{c.email}}</td>
-                    </tr>
 
-                    </tbody>
-                </table>
+                <h3>Candidates:</h3>
+
+                <div ng-repeat="cand in job.candidates">
+
+                    <h4> {{cand.email}}</h4>
+
+                    <div class="block-content collapse in">
+                        <div style="float: left; width: 160px" class="col-md-2 text-center" ng-repeat="day in cand.days">
+                            <h4><i>{{ day.name }}</i></h4>
+
+                            <div class="time-slot" ng-repeat="slot in day.slots">
+                                <input type="checkbox" id="{{ day.name }}-{{ $index }}" ng-model="slot.booked">
+                                <label class="time-slot" for="{{ day.name }}-{{ $index }}">{{ slot.time }} <br>
+                                    <span ng-if="slot.booked">Booked</span> <span ng-if="!slot.booked">Available</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
             </div>
 
         </div>
     </div>
-
 
 
 </div>
