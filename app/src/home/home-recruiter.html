@@ -55,7 +55,7 @@
 <div class="container" ng-app="crmDemo" layout="row" ng-cloak>
     <div class="block">
         <div class="navbar navbar-inner block-header">
-            <div class="muted pull-left"><b>Jobs list</b></div>
+            <div class="muted pull-left"><b>Non affected Jobs's list</b></div>
         </div>
         <div class="block-content collapse in">
             <select ng-model="aff.job">
@@ -85,10 +85,17 @@
         </div>
     </div>
     <p>
-        <button class="btn btn-primary" ng-disabled="!(aff.job && aff.candidates && aff.managers)" ng-click="createAffectation()"><b>Create Affectation</b></button>
+        <button class="btn btn-primary" ng-disabled="!(aff.job && aff.candidates && aff.managers)"
+                ng-click="createAffectation()"><b>Create Affectation</b></button>
     </p>
 
+
+    <div class="alert alert-success" role="alert" style="display: none;">
+        <a href="#" class="alert-link">affectation deleted </a>
+    </div>
+
     <div class="block">
+
         <div class="navbar navbar-inner block-header">
             <div class="muted pull-left">Affectation List</div>
         </div>
@@ -103,6 +110,17 @@
                 </tr>
                 </thead>
                 <tbody id="affTable">
+                <tr ng-repeat="aff in jobsAffectations" class="ng-scope">
+                    <td>{{$index}}</td>
+                    <td>{{aff.name}}</td>
+                    <td>{{aff.managers.join()}}</td>
+                    <td>{{aff.candidates.join()}}</td>
+                    <td>
+                        <button ng-click="deleteAffectation(aff.key, $index)" type="button" class="btn btn-danger">
+                            X
+                        </button>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>

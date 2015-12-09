@@ -10,7 +10,8 @@ HomeRecruiterController.$inject = [
     '$firebaseArray',
     '$firebaseObject',
     'CONFIG',
-    'userInitDataService'];
+    'userInitDataService',
+    '$compile'];
 function HomeRecruiterController($scope,
                                  firebaseAuth,
                                  auth,
@@ -18,7 +19,8 @@ function HomeRecruiterController($scope,
                                  $firebaseArray,
                                  $firebaseObject,
                                  CONFIG,
-                                 userInitDataService) {
+                                 userInitDataService,
+                                 $compile) {
     var self = this,
         userID,
         firebaseObjRoot,
@@ -38,7 +40,6 @@ function HomeRecruiterController($scope,
     $scope.type = store.get('profile').type;
     userID = store.get('profile').email.replace(/\./g, ',');   //The email as stored in FireBase.
     $scope.email = store.get('profile').email;
-
     firebaseObjRoot = new Firebase(CONFIG.FIREBASE);
     friendsRefUser = new Firebase(CONFIG.FIREBASE + '/users/' + userID);
     friendsRefUsers = new Firebase(CONFIG.FIREBASE + '/users');
@@ -47,20 +48,32 @@ function HomeRecruiterController($scope,
     //Jobs
     var syncObject = $firebaseObject(friendsRefJobs);
     syncObject.$bindTo($scope, 'jobs').then(function (data) {
-
-        console.log("-->chere");
-
         //sync.
-        $scope.jobsView = _.filter(_.map($scope.jobs, function (el, key) {
+        console.log("$scope.jobs=", $scope.jobs);
+        var cleanArray = _.map($scope.jobs, function (el, key) {
             if (!!el && el != "jobs") {
                 el.key = key;
             }
             return el;
-        }), function (el) {
-            return !angular.isObject(el) ? false : true;
         });
-        console.log("$scope.jobsView=", $scope.jobsView);
-
+        $scope.jobsView = _.filter(cleanArray, function (el) {
+            if (!angular.isObject(el)) {
+                return false;
+            } else {
+                return el.managers ? false : true;
+            }
+            //return only the non affected job (manages or candidates not yet set)
+        });
+        //Affectation
+        $scope.jobsAffectations = _.filter(cleanArray, function (el) {
+            if (!angular.isObject(el)) {
+                return false;
+            } else {
+                return !el.managers ? false : true;
+            }
+            //return only the non affected job (manages or candidates not yet set)
+        });
+        console.log("$scope.jobsAffectations=", $scope.jobsAffectations);
     });
     //Managers
     var syncObjectUsers = $firebaseObject(friendsRefUsers);
@@ -84,14 +97,47 @@ function HomeRecruiterController($scope,
         var jobName = _.find($scope.jobsView, function (el) {
             return el.key == $scope.aff.job;
         }).name;
-        $('#affTable').append('<tr><td>1</td><td>' + jobName + '</td>' +
+        var html = '<tr><td>1</td><td>' + jobName + '</td>' +
             '<td>' + $scope.aff.managers.join() + '</td>' +
-            '<td>' + $scope.aff.candidates.join() + '</td></tr>');
+            '<td>' + $scope.aff.candidates.join() + '</td>' +
+            '<td><button ng-click="deleteAffectation(' + $scope.aff.job + ','+ $scope.jobsAffectations.length +')" type="button" class="btn btn-danger">X</button></td>' +
+            '</tr>';
+        var temp = $compile(html)($scope);
+        $('#affTable').append(temp);
+    };
+    $scope.deleteAffectation = function (key, idx) {
+        //Not yet very stable... work on stablilyzing the Syncronization..
+        //Deleting affecation
+        $(".alert").show();
+        var firebaseObj = new Firebase(CONFIG.FIREBASE + '/jobs/' + key);
+        var refManagers = firebaseObj.child("managers");
+        var refCand = firebaseObj.child("candidates");
+        refManagers.set(null, function (error) {
+            if (error) {
+                console.log("Error deleting Managers", error);
+            } else {
+                refCand.set(null, function (error) {
+                    if (error) {
+                        console.log("Error deleting Candidates", error);
+                    } else {
+                        console.log("-->Success deleted");
+
+                        idx++;
+                        $('#affTable tr:nth-child(' + idx + ')').remove();
+                    }
+                });
+            }
+        });
     };
     $scope.logout = function () {
         auth.signout();
         store.remove('profile');
         store.remove('token');
     };
+    //Effects
+    //Automatic close messages
+    $(".alert").delay(4000).slideUp(200, function () {
+        $(this).alert('close');
+    });
 }
 

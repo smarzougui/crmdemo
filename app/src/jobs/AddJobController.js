@@ -68,4 +68,11 @@ function AddJobController($scope,
         store.remove('profile');
         store.remove('token');
     }
+
+    //Effects
+    //Automatic close messages
+    $(".alert").delay(4000).slideUp(200, function() {
+        $(this).alert('close');
+    });
+
 };

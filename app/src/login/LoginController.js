@@ -113,4 +113,11 @@ function LoginController($scope, firebaseAuth, auth, store, $location, CONFIG) {
         store.remove('token');
         store.remove('firebaseToken');
     }
+
+    //Effects
+    //Automatic close messages
+    $(".alert").delay(4000).slideUp(200, function() {
+        $(this).alert('close');
+    });
+
 }
